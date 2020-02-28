@@ -40,7 +40,7 @@ public class TimeRecordController extends AbstractController {
 	public String index(HttpServletRequest request, ModelMap model) throws Exception {
 		AbilistsModel abilistsModel = new AbilistsModel();
 		abilistsModel.setNavi("plugins");
-		abilistsModel.setMenu("survey");
+		abilistsModel.setMenu("timeRecord");
 
 		// Set base URL
 		configBean.setBaseURL(PathUtility.getURLBase(request));
@@ -49,11 +49,11 @@ public class TimeRecordController extends AbstractController {
 		
 		model.addAttribute("model", abilistsModel);
 
-		return "apps/plugins/survey/index";
+		return "apps/plugins/timerecord/index";
 	}
 
-    @RequestMapping(value = {"serveyList"}, method=RequestMethod.GET)
-	public String serveyList(@Validated SltTimeRecordPara sltTimeRecordPara, 
+    @RequestMapping(value = {"timeRecordList"}, method=RequestMethod.GET)
+	public String timeRecordList(@Validated SltTimeRecordPara sltTimeRecordPara, 
 			BindingResult bindingResult, ModelMap model, HttpServletRequest request,
 			HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception {
 
@@ -61,7 +61,7 @@ public class TimeRecordController extends AbstractController {
 
 		model.addAttribute("configBean", model);
 
-	   	return "apps/plugins/survey/serveyList";
+	   	return "apps/plugins/timerecord/timeRecordList";
 	}
 
 	@Override

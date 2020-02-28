@@ -2,30 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.abilists.dao.plugins.SSurveyDao">
+<mapper namespace="com.abilists.plugins.timerecord.dao.STimeRecordDao">
 
-	<select id="sltPluginsMSurveyList" parameterType="map" 
-		resultType="com.abilists.plugins.timerecord.dao.STimeRecordDao">
+	<select id="sltTimeRecordList" parameterType="map" 
+		resultType="com.abilists.plugins.timerecord.bean.model.TimeRecordModel">
 		SELECT
-			pms_no,
-			pms_title,
-			pms_question,
-			pms_kind,
-			pms_option1,
-			pms_option2,
-			pms_option3,
-			pms_option4,
-			pms_option5,
-			pms_option6,
-			pms_option7,
-			pms_status,
-			pms_delete,
+			utr_no,
+		  	utr_kind,
+		  	utr_month,
+		  	utr_day,
+		  	utr_standard_ampm,
+		  	utr_standard_hour,
+		  	utr_start_time,
+		  	utr_end_time,
+		  	utr_work_hour,
+		  	utr_comment,
+		  	utr_permit,
+		  	utr_status,
+		  	utr_delete,
+		  	user_id,
 			insert_time,
-			update_time,
+			update_time
 		FROM
-			plugins_m_survey
+			user_time_record
 		WHERE
-			pms_delete = '0'
+			utr_delete = '0'
 		ORDER BY
 			update_time DESC
 		LIMIT
