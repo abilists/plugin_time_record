@@ -30,51 +30,54 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 	private SqlSession sAbilistsDao;
 
 	@Override
-	public List<TimeRecordModel> sltServeyList(SltTimeRecordPara sltSurveyPara) throws Exception {
-		List<TimeRecordModel> surveyList = null;
+	public List<TimeRecordModel> sltTimeRecordList(SltTimeRecordPara sltTimeRecordPara) throws Exception {
+		List<TimeRecordModel> timeRecordList = null;
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", sltSurveyPara.getUserId());
+		map.put("userId", sltTimeRecordPara.getUserId());
 
 		try {
 			sqlSessionSlaveFactory.setDataSource(getDispersionDb());
-			surveyList = sAbilistsDao.getMapper(STimeRecordDao.class).sltPluginsMSurveyList(map);
+			timeRecordList = sAbilistsDao.getMapper(STimeRecordDao.class).sltTimeRecordList(map);
 
 		} catch (Exception e) {
 			logger.error("sltOptions Exception error", e);
 		}
 
-		return surveyList;
+		return timeRecordList;
 	}
 
 	@Override
-	public TimeRecordModel sltServey(SltTimeRecordPara sltSurveyPara) throws Exception {
-		TimeRecordModel survey = null;
+	public TimeRecordModel sltTimeRecord(SltTimeRecordPara sltTimeRecordPara) throws Exception {
+		TimeRecordModel timeRecord = null;
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", sltSurveyPara.getUserId());
+		map.put("userId", sltTimeRecordPara.getUserId());
 
 		try {
 			sqlSessionSlaveFactory.setDataSource(getDispersionDb());
-			survey = sAbilistsDao.getMapper(STimeRecordDao.class).sltPluginsMSurvey(map);
-			if(survey == null) {
+			timeRecord = sAbilistsDao.getMapper(STimeRecordDao.class).sltTimeRecord(map);
+			if(timeRecord == null) {
 				logger.error("There is no user default options data. please insert your default data.");
 			}
 		} catch (Exception e) {
 			logger.error("sltOptions Exception error", e);
 		}
 
-		return survey;
+		return timeRecord;
 	}
 
 	@Transactional(rollbackFor = {IndexOutOfBoundsException.class, Exception.class}, propagation = Propagation.REQUIRES_NEW)
 	@Override
-	public boolean istServey(IstTimeRecordPara istSurveyPara) throws Exception {
+	public boolean istTimeRecord(IstTimeRecordPara istTimeRecordPara) throws Exception {
+		
+		int intResult = 0;
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", istTimeRecordPara.getUserId());
+
 		try {
-
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("userId", istSurveyPara.getUserId());
-
+			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).udtMTimeRecord(map);
 		} catch (IndexOutOfBoundsException ie) {
 			logger.error("IndexOutOfBoundsException error", ie);
 			return false;
@@ -82,27 +85,9 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 			logger.error("Exception error", e);
 			return false;
 		}
-
-		return true;
-	}
-
-	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	@Override
-	public boolean udtServey(UdtTimeRecordPara udtSurveyPara) throws Exception {
-
-		int intResult = 0;
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", udtSurveyPara.getUserId());
-
-		try {
-			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).udtPluginsMSurvey(map);
-		} catch (Exception e) {
-			logger.error("Exception error", e);
-		}
-	
+		
 		if(intResult < 1) {
-			logger.error("udtServey error, userId={}", udtSurveyPara.getUserId());
+			logger.error("istServey error, userId={}", istTimeRecordPara.getUserId());
 			return false;
 		}
 	
@@ -111,7 +96,30 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	@Override
-	public boolean dltServey(UdtTimeRecordPara udtSurveyPara) throws Exception {
+	public boolean udtTimeRecord(UdtTimeRecordPara udtTimeRecordPara) throws Exception {
+
+		int intResult = 0;
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", udtTimeRecordPara.getUserId());
+
+		try {
+			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).udtMTimeRecord(map);
+		} catch (Exception e) {
+			logger.error("Exception error", e);
+		}
+	
+		if(intResult < 1) {
+			logger.error("udtServey error, userId={}", udtTimeRecordPara.getUserId());
+			return false;
+		}
+	
+		return true;
+	}
+
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	@Override
+	public boolean dltTimeRecord(UdtTimeRecordPara udtSurveyPara) throws Exception {
 
 		int intResult = 0;
 
@@ -119,7 +127,7 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		map.put("userId", udtSurveyPara.getUserId());
 
 		try {
-			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).udtPluginsMSurvey(map);
+			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).dltMTimeRecord(map);
 		} catch (Exception e) {
 			logger.error("Exception error", e);
 		}
@@ -128,7 +136,7 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 			logger.error("dltServey error, userId={}", udtSurveyPara.getUserId());
 			return false;
 		}
-	
+
 		return true;
 	}
 

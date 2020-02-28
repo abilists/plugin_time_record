@@ -1,7 +1,7 @@
 # Local directory
 /.gradle
 /.settings
-
+/build
 
 # Compiled class file
 *.class

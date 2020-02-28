@@ -34,7 +34,7 @@ public class TimeRecordController extends AbstractController {
 	private ConfigBean configBean;
 
 	@Autowired
-	private TimeRecordService surveyService;
+	private TimeRecordService timeRecordService;
 
 	@RequestMapping(value = {"/", "", "index"})
 	public String index(HttpServletRequest request, ModelMap model) throws Exception {
@@ -53,11 +53,11 @@ public class TimeRecordController extends AbstractController {
 	}
 
     @RequestMapping(value = {"serveyList"}, method=RequestMethod.GET)
-	public String serveyList(@Validated SltTimeRecordPara sltSurveyPara, 
+	public String serveyList(@Validated SltTimeRecordPara sltTimeRecordPara, 
 			BindingResult bindingResult, ModelMap model, HttpServletRequest request,
 			HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception {
 
-    	// surveyService.sltServeyList(sltSurveyPara);
+    	timeRecordService.sltTimeRecordList(sltTimeRecordPara);
 
 		model.addAttribute("configBean", model);
 

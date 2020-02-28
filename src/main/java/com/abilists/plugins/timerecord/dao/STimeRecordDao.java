@@ -11,7 +11,7 @@ import com.abilists.plugins.timerecord.bean.model.TimeRecordModel;
 @Repository
 public interface STimeRecordDao {
 
-	public List<TimeRecordModel> sltPluginsMSurveyList(Map<String, Object> map) throws SQLException;
-	public TimeRecordModel sltPluginsMSurvey(Map<String, Object> map) throws SQLException;
+	public List<TimeRecordModel> sltTimeRecordList(Map<String, Object> map) throws SQLException;
+	public TimeRecordModel sltTimeRecord(Map<String, Object> map) throws SQLException;
 
 }

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MTimeRecordDao {
 
-	public int istPluginsMSurvey(Map<String, Object> map) throws SQLException;
-	public int udtPluginsMSurvey(Map<String, Object> map) throws SQLException;
-	public int dltPluginsMSurvey(Map<String, Object> map) throws SQLException;
+	public int istMTimeRecord(Map<String, Object> map) throws SQLException;
+	public int udtMTimeRecord(Map<String, Object> map) throws SQLException;
+	public int dltMTimeRecord(Map<String, Object> map) throws SQLException;
 
 }

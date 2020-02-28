@@ -4,68 +4,70 @@
 
 <mapper namespace="com.abilists.plugins.timerecord.dao.MTimeRecordDao">
 
-	<insert id="istPluginsMSurvey" parameterType="map">
-		INSERT INTO plugins_m_survey (
-			pms_title,
-			pms_question,
-			pms_kind,
-			pms_option1,
-			pms_option2,
-			pms_option3,
-			pms_option4,
-			pms_option5,
-			pms_option6,
-			pms_option7,
-			pms_status,
-			pms_delete,
+	<insert id="istMTimeRecord" parameterType="map">
+		INSERT INTO user_time_record (
+		  	utr_kind,
+		  	utr_month,
+		  	utr_day,
+		  	utr_standard_ampm,
+		  	utr_standard_hour,
+		  	utr_start_time,
+		  	utr_end_time,
+		  	utr_work_hour,
+		  	utr_comment,
+		  	utr_permit,
+		  	utr_status,
+		  	utr_delete,
+		  	user_id,
 			insert_time,
-			update_time,
+			update_time
 		) VALUES (
-			#{pmsTitle},
-			#{pmsQuestion},
-			#{pmsKind},
-			#{pmsOption1},
-			#{pmsOption2},
-			#{pmsOption3},
-			#{pmsOption4},
-			#{pmsOption5},
-			#{pmsOption6},
-			#{pmsOption7},
+			#{utrKind},
+			#{utrMonth},
+			#{utrDay},
+			#{utrStandardAmpm},
+			#{utrStandardHour},
+			#{utrStartTime},
+			#{utrEndTime},
+			#{utrWorkHour},
+			#{utrComment},
 			'0',
 			'0',
+			'0',
+			#{userId},
 			now(),
 			now()
 		)
 	</insert>
 
-	<update id="udtPluginsMSurvey" parameterType="map">
+	<update id="udtMTimeRecord" parameterType="map">
 		UPDATE 
-			plugins_m_survey
+			user_time_record
 		SET
-			pms_title = #{pmsTitle},
-			pms_question = #{pmsQuestion},
-			pms_kind = #{pmsKind},
-			pms_option1 = #{pmsOption1},
-			pms_option2 = #{pmsOption2},
-			pms_option3 = #{pmsOption3},
-			pms_option4 = #{pmsOption4},
-			pms_option5 = #{pmsOption5},
-			pms_option6 = #{pmsOption6},
-			pms_option7 = #{pmsOption7},
-			pms_status = #{pmsStatus},
+		  	utr_kind = #{utrKind},
+		  	utr_month = #{utrMonth},
+		  	utr_day = #{utrDay},
+		  	utr_standard_ampm = #{utrStandardAmpm},
+		  	utr_standard_hour = #{utrStandardHour},
+		  	utr_start_time = #{utrStartTime},
+		  	utr_end_time = #{utrEndTime},
+		  	utr_work_hour = #{utrWorkHour},
+		  	utr_comment = #{utrComment},
+		  	utr_permit = #{utrPermit},
+		  	utr_status = #{utrStatus},
 			update_time = now()
 		WHERE
 			pms_no = #{pmsNo}
 	</update>
 
-	<update id="dltPluginsMSurvey" parameterType="map">
+	<update id="dltMTimeRecord" parameterType="map">
 		UPDATE 
-			plugins_m_survey
+			user_time_record
 		SET
-			pms_delete = #{pmsDelete},
+			utr_delete = #{utrDelete},
 			update_time = now()
 		WHERE
-			pms_no = #{pmsNo}
+			utr_no = #{utrNo}
 	</update>
 
 </mapper>

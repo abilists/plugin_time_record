@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS abilists.user_time_record (
   utr_no BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   utr_kind VARCHAR(100) NULL,
   utr_month VARCHAR(2) NULL,
+  utr_day VARCHAR(2) NULL,
   utr_standard_ampm CHAR(1) NULL,
   utr_standard_hour VARCHAR(2) NULL,
   utr_start_time TIMESTAMP NULL,
