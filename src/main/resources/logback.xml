@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%date{dd MMM yyyy;HH:mm:ss.SSS} [%thread] %-5level %logger{16}.%M\(%line\) - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <property resource="logback.properties" />  
+
+  <appender name="ABILISTS_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<file>${tomcat.logs.path}/logs/abilists.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<!-- daily rollover -->
+		<fileNamePattern>${tomcat.logs.path}/logs/abilists.log.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+		<!-- keep 90 days' worth of history -->
+		<maxHistory>90</maxHistory>
+    </rollingPolicy>
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+		<charset>UTF-8</charset>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date{dd MMM yyyy;HH:mm:ss.SSS} [%thread] %-5level %logger{16}.%M\(%line\) - %msg%n</pattern>
+		</layout>
+    </encoder>
+  </appender>
+
+  <appender name="DELETE_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<file>${tomcat.logs.path}/logs/abilists_delete.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<!-- daily rollover -->
+		<fileNamePattern>${tomcat.logs.path}/logs/abilists_delete.log.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+		<!-- keep 90 days' worth of history -->
+		<maxHistory>90</maxHistory>
+    </rollingPolicy>
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+		<charset>UTF-8</charset>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date{dd MMM yyyy;HH:mm:ss.SSS} [%thread] %-5level %logger{16}.%M\(%line\) - %msg%n</pattern>
+		</layout>
+    </encoder>
+  </appender>
+
+  <logger name="deleteLog" additivity="false">
+  	<level value="INFO" />
+  	<appender-ref ref="DELETE_LOG" />
+  </logger>
+
+  <root>
+	<level value="INFO" />
+	<appender-ref ref="STDOUT" />
+  </root>
+
+</configuration>

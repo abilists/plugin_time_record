@@ -1,0 +1,22 @@
+.breadcrumb-std {
+/*    background-color: #f5f5f5;
+    border-radius: 4px;
+    list-style: outside none none; */
+    margin-bottom: 0px;
+    padding: 0;
+}
+.breadcrumb-std > li {
+    display: inline-block;
+}
+.breadcrumb-std > li + li::before {
+    color: #ccc;
+    content: "/ ";
+    padding: 0 5px;
+}
+.breadcrumb-std > .active {
+    color: #777;
+}
+ol, ul {
+    margin-bottom: 0;
+    margin-top: 0;
+}

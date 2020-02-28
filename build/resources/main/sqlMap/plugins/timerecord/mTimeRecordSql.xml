@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.abilists.plugins.timerecord.dao.MTimeRecordDao">
+
+	<insert id="istPluginsMSurvey" parameterType="map">
+		INSERT INTO plugins_m_survey (
+			pms_title,
+			pms_question,
+			pms_kind,
+			pms_option1,
+			pms_option2,
+			pms_option3,
+			pms_option4,
+			pms_option5,
+			pms_option6,
+			pms_option7,
+			pms_status,
+			pms_delete,
+			insert_time,
+			update_time,
+		) VALUES (
+			#{pmsTitle},
+			#{pmsQuestion},
+			#{pmsKind},
+			#{pmsOption1},
+			#{pmsOption2},
+			#{pmsOption3},
+			#{pmsOption4},
+			#{pmsOption5},
+			#{pmsOption6},
+			#{pmsOption7},
+			'0',
+			'0',
+			now(),
+			now()
+		)
+	</insert>
+
+	<update id="udtPluginsMSurvey" parameterType="map">
+		UPDATE 
+			plugins_m_survey
+		SET
+			pms_title = #{pmsTitle},
+			pms_question = #{pmsQuestion},
+			pms_kind = #{pmsKind},
+			pms_option1 = #{pmsOption1},
+			pms_option2 = #{pmsOption2},
+			pms_option3 = #{pmsOption3},
+			pms_option4 = #{pmsOption4},
+			pms_option5 = #{pmsOption5},
+			pms_option6 = #{pmsOption6},
+			pms_option7 = #{pmsOption7},
+			pms_status = #{pmsStatus},
+			update_time = now()
+		WHERE
+			pms_no = #{pmsNo}
+	</update>
+
+	<update id="dltPluginsMSurvey" parameterType="map">
+		UPDATE 
+			plugins_m_survey
+		SET
+			pms_delete = #{pmsDelete},
+			update_time = now()
+		WHERE
+			pms_no = #{pmsNo}
+	</update>
+
+</mapper>

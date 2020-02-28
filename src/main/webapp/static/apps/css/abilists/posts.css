@@ -1,0 +1,81 @@
+/* Start - side title */
+ul.title-right-memo-posts {
+	list-style-type: none;
+	width: 100%;
+	display: table;
+	padding-left: 5px; 
+	padding-right: 5px; 
+	margin-bottom: 0px;
+}
+
+ul.title-right-users-posts {
+	list-style-type: none;
+	width: 100%;
+	display: table;
+	padding-left: 0px; 
+	padding-right: 5px; 
+	margin-bottom: 5px;
+}
+/* End - side title */
+
+/* Start - fix in scroll */
+.memo-fix {
+  padding: 5px 5px 5px 5px;
+  border: 0.5px solid #dadada;
+}
+.users-fix {
+  margin-bottom: 1px;
+/*  width: 230px; */
+}
+
+.fix-scroll {
+  position: fixed;
+  border: 0.5px solid #dadada;
+  top: 70px;
+}
+/* End - fix in scroll */
+
+ul.memo li a:hover {
+  transform: scale(1.0);
+}
+
+/* Post on mouseover */
+div.posts:hover {
+	background:#f2f6ff;
+}
+
+/* Main posts */
+div.main-posts {
+	margin-bottom: 7px;
+	border: 0.5px solid #dadada;
+}
+
+ul.body-posts {
+	list-style-type: none;
+	width: 100%;
+	display: table;
+	padding-left: 0px; 
+	padding-right: 5px;
+}
+
+li.body-posts-name {
+	list-style-type: none;
+	display: table-cell; width:75%
+}
+
+li.body-posts-contents {
+	list-style-type: none;
+	display: table-cell;
+}
+
+ul.body-posts-menu {
+	left:10px; top: 15px;
+	min-width: 110px;
+}
+
+div.posts-link {
+	margin-top: 10px; 
+	padding-top: 8px; 
+	border-top: 1px solid #f3f3f3;
+}
+

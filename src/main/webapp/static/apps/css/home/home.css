@@ -1,0 +1,49 @@
+/* Fixed max width size*/
+@media (min-width: 1024px) { 
+	.container { 
+		width: 1024px !important; 
+	}
+	.right-col-cus {
+		padding-right: -5px;
+	}
+	.left-col-cus {
+		padding-left: -5px;
+	}
+}
+
+.navbar {
+    margin-bottom: 10px;
+}
+
+div.home {
+	background-color: white; 
+    padding-top: 10px;
+    padding-right: 100px;
+    padding-bottom: 10px;
+    padding-left: 100px;
+}
+
+.fw-row {
+    margin-left: 0;
+    margin-right: 0;
+    overflow: hidden;
+	background-color: #eee;
+	padding: 50px;
+}
+
+div.vim01 {
+    background-color: black;
+    padding: 5px;
+    margin: 5px;
+    color: white;
+}
+
+/* Default box */
+body {
+    background: #f1f2f2 none repeat scroll 0 0;
+    color: #767676;
+    margin: 0 !important;
+    overflow-x: hidden;
+    padding: 0 !important;
+    text-rendering: optimizelegibility;
+}

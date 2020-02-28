@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.abilists.dao.plugins.SSurveyDao">
+
+	<select id="sltPluginsMSurveyList" parameterType="map" 
+		resultType="com.abilists.plugins.timerecord.dao.STimeRecordDao">
+		SELECT
+			pms_no,
+			pms_title,
+			pms_question,
+			pms_kind,
+			pms_option1,
+			pms_option2,
+			pms_option3,
+			pms_option4,
+			pms_option5,
+			pms_option6,
+			pms_option7,
+			pms_status,
+			pms_delete,
+			insert_time,
+			update_time,
+		FROM
+			plugins_m_survey
+		WHERE
+			pms_delete = '0'
+		ORDER BY
+			update_time DESC
+		LIMIT
+			#{nowPage}, #{row}
+	</select>
+
+</mapper>

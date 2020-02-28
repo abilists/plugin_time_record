@@ -1,0 +1,24 @@
+/* Fixed max width size*/
+@media (max-width: 650px) { 
+
+	/* Post */
+	h2.ad-title { 
+		font: 22px/22px Helvetica, Sans-Serif;
+	}
+
+	p.ad-contents { 
+		font: 12px/15px Helvetica, Sans-Serif;
+		/*display: none;*/
+	}
+	
+	div.left-col-cus {
+    	padding-left: 15px !important; 
+    	padding-right: 10px;
+	}
+
+	/* Profile */
+	ul li.overview {
+		width: 100%;
+	}
+
+}

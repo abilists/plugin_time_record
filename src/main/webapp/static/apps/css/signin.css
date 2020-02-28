@@ -1,0 +1,7 @@
+.form-signin {
+	padding: 15px 35px 35px;
+	margin: 0 auto;
+	border: 1px solid rgba(0,0,0,0.1);
+	background-color: rgba(255, 255, 255, 0.7);
+	height: 285px;
+}

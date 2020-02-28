@@ -1,0 +1,18 @@
+/*
+ * Input for searching something.
+ */
+
+.input-results .input-searching {
+    background: #f4f4f4;
+    display: list-item;
+}
+
+.input-spinner input {
+	background: url('/static/apps/img/spinner.gif') no-repeat 100% 5px;
+	background-color: white;
+}
+
+.input-search input {
+ 	background: url('/static/apps/img/search.png') no-repeat 100% 5px;
+	background-color: white;
+}

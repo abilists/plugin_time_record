@@ -1,0 +1,27 @@
+label {
+    display: inline-block;
+    max-width: 100%;
+    font-weight:normal;
+}
+
+.string-size {
+	float: right;
+	margin: 0 0 0px;
+	padding-top: 7px;
+}
+
+.breadcrumbs-right-before:before {
+    content: none !important;
+}
+
+.breadcrumbs-right-after:after {
+	border-left: 1em solid #7295dc !important;
+}
+div.bar { 
+    position:   absolute;
+	z-index: 2;
+    top:        0px;
+    left:       0px;
+    height:     100%;
+	padding: 10px;
+}

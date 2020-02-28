@@ -1,0 +1,53 @@
+
+.avatar-view-bg {
+  display: block;
+  border: 3px solid #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.avatar-view-bg img {
+  width: 100%;
+}
+
+.avatar-upload-bg {
+  overflow: hidden;
+}
+
+.avatar-upload-bg label {
+  display: block;
+  float: left;
+  clear: left;
+  width: 100px;
+}
+
+.avatar-upload-bg input {
+  display: block;
+  margin-left: 110px;
+}
+
+.avatar-alert-bg {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.avatar-wrapper-bg {
+  width: 100%;
+  margin-top: 15px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.avatar-wrapper-bg img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.avatar-btns-bg {
+  margin-top: 15px;
+}
+
+.avatar-btns-bg .btn-group {
+  margin-right: 5px;
+}

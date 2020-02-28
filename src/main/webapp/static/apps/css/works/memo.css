@@ -1,0 +1,63 @@
+ul.memo {
+  list-style:none;
+  width:100%;
+  margin:auto;
+  overflow:hidden;
+  padding:0px;
+}
+
+ul.memo li a{
+  text-decoration:none;
+  border-radius: 3px;
+  color:#000;
+  background:#ffc;
+  display:block;
+  height:174px;
+  width:174px;
+  padding:5px;
+  padding-top:15px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  word-break:break-all;
+}
+
+ul.memo li a:hover {
+  border: 1px solid #729fcf;
+  /* transform: scale(1.1); */
+}
+
+ul.memo li{
+  position: relative;
+  margin:10px;
+  float:left;
+}
+
+/* Select color */
+ul.memo-bg-color {
+  list-style:none;
+  position: relative;
+  text-decoration:none;
+  float:left;
+  padding:0px;
+}
+
+ul.memo-bg-color li{
+  float:left;
+  height:30px;
+  width:30px;
+  cursor: pointer;
+  background:#ccff99;
+}
+
+/* Select color on Memo background */
+ul.memo-bg-color li:hover {
+  border: 1px solid #337ab7;
+  transform: scale(1.2);
+}
+
+.btn span.check-switch {    			
+	opacity: 0.3;				
+}
+.btn.active span.check-switch {				
+	opacity: 1;				
+}

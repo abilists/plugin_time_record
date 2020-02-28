@@ -1,0 +1,53 @@
+
+.avatar-view-plugin {
+  display: block;
+  border: 3px solid #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.avatar-view-plugin img {
+  width: 100%;
+}
+
+.avatar-upload-plugin {
+  overflow: hidden;
+}
+
+.avatar-upload-plugin label {
+  display: block;
+  float: left;
+  clear: left;
+  width: 100px;
+}
+
+.avatar-upload-plugin input {
+  display: block;
+  margin-left: 110px;
+}
+
+.avatar-alert-plugin {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.avatar-wrapper-plugin {
+  width: 100%;
+  margin-top: 15px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.avatar-wrapper-plugin img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.avatar-btns-plugin {
+  margin-top: 15px;
+}
+
+.avatar-btns-plugin .btn-group {
+  margin-right: 5px;
+}

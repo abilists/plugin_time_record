@@ -1,0 +1,43 @@
+.right-symbol-profile-button {
+	cursor: pointer;
+	float: right;
+	font-size: 20px;
+	margin-right: 10px;
+	color:#d4ebff;
+}
+
+.right-symbol-works-button {
+	cursor: pointer;
+	float: right;
+	font-size: 20px;
+	margin-right: 10px;
+	color:#ffe8e8;
+}
+
+.left-symbol-button {
+	cursor: pointer;
+	float: left;
+	font-size: 20px;
+	margin-right: 5px;
+}
+
+.menu-works-button {
+	color:#a57b7b;
+}
+
+#closeButton {
+	float:right;
+	display:inline-block;
+	padding:2px 7px;
+	background:#97c2d8;
+	cursor: pointer;
+}
+
+#closeButton:hover {
+	float:right;
+	display:inline-block;
+	padding:2px 7px;
+	background:#97c2d8;
+	color:#fff;
+	cursor: pointer;
+}

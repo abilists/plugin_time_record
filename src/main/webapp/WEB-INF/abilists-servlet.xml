@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<context:component-scan base-package="com.abilists" />
+	<context:annotation-config />
+
+	<!-- Configures the @Controller programming model -->
+	<mvc:annotation-driven>
+		<!-- .(dot) is parameter, not extension for files. -->
+		<mvc:path-matching registered-suffixes-only="true"/>
+	</mvc:annotation-driven>
+
+	<mvc:resources location="/static/" mapping="/static/**"/>
+
+
+	<!-- Set The template Path -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPaths" value="classpath:template/, classpath:plugins/, /templates/" />
+		<!-- Hot detection of template changes should be true.-->
+		<!-- If files on resource should be read, preferFileSystemAccess should be false.-->
+		<property name="preferFileSystemAccess" value="true" />
+	    <property name="freemarkerVariables">
+	        <map>
+	            <entry key="xml_escape" value-ref="fmXmlEscape"/>
+	            <entry key="html_escape" value-ref="fmHtmlEscape"/>
+	        </map>
+	    </property>
+	</bean>
+
+	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
+	<bean id="fmHtmlEscape" class="freemarker.template.utility.HtmlEscape"/>
+
+	<!-- View resolvers can also be configured with ResourceBundles or XML files. 
+		If you need different view resolving based on Locale, you have to use the 
+		resource bundle resolver. -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+		<property name="contentType" value="text/html; charset=UTF-8" />
+		<property name="cache" value="false" />
+		<property name="prefix" value="" />
+		<property name="suffix" value=".ftl" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+<!-- 	<property name="redirectHttp10Compatible" value="false" /> 	-->
+	</bean>
+
+</beans>

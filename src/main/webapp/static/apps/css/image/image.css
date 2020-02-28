@@ -1,0 +1,9 @@
+
+/*
+ * sideImg
+ */
+@media (min-width: 768px) {
+    .sideImg {
+        width: 255px;
+    }
+}

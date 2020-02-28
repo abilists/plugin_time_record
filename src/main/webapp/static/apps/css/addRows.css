@@ -1,0 +1,16 @@
+
+input {
+	border: 1px solid gray;
+	resize: horizontal;
+}
+
+input:active {
+    width: auto;   
+}
+
+/*
+ * Change the modal size.
+ */
+@media screen and (min-width: 768px) {
+	#myModal .modal-dialog  {width:900px;}
+}

@@ -1,0 +1,285 @@
+
+.navi-bar {
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+	height: 50px;
+}
+
+/* Fixed max width size*/
+@media (min-width: 1024px) { 
+	.container { 
+		width: 1024px !important; 
+	}
+	.right-col-cus {
+		padding-right: -5px;
+	}
+	.left-col-cus {
+		padding-left: -5px;
+	}
+}
+
+.page-header2 {
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Modal */
+.modal-header {
+	background-color: #2980b9;
+	color: white;
+    padding: 10px;
+}
+.modal-footer {
+	padding: 10px;
+}
+
+/* Index menu */
+div.box1 {
+	border-style: solid;
+	border-color: #385b7f;
+	background-color: #297ACC;
+	border-width: 0px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin: 10px;
+	padding: 10px;
+
+	/* This is auto newline*/
+	word-break:break-all; word-wrap:break-word;
+}
+div.box2 {
+	
+	border-style: solid;
+	border-color: #34a834;
+	background-color: #70DB70;
+	border-width: 0px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin: 10px;
+	padding: 10px;
+
+	/* This is auto newline*/
+	word-break:break-all; word-wrap:break-word;
+}
+div.box3 {
+	
+	border-style: solid;
+	border-color: #d8a131;
+	background-color: #FFCC66;
+	border-width: 0px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin: 10px;
+	padding: 10px;
+
+	/* This is auto newline*/
+	word-break:break-all; word-wrap:break-word;
+}
+div.box4 {
+	
+	border-style: solid;
+	border-color: #c63d3d;
+	background-color: #E64848;
+	border-width: 0px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin: 10px;
+	padding: 10px;
+
+	/* This is auto newline*/
+	word-break:break-all; word-wrap:break-word;
+}
+
+textarea.taForm {
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #eeeeec;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555;
+    display: block;
+    font-size: 14px;
+    height: 70px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+}
+
+select.taForm {
+	width:100%;
+	height: 32px;
+	border-radius: 3px;
+	padding: 5px;
+	border: 1px solid #cacaca;
+	background-color: white;
+}
+
+.taForm-disable {
+    background-color: #ededed !important;
+    cursor: not-allowed;
+}
+
+/* Default box */
+body {
+    background: #f1f2f2 none repeat scroll 0 0;
+    color: #707070;
+    margin: 0 !important;
+    overflow-x: hidden;
+    padding: 0 !important;
+    text-rendering: optimizelegibility;
+}
+
+.caption {
+	background: #7b8ca5 none repeat scroll 0 0 !important;
+	color: inherit;
+	border-bottom: 1px solid #eee;
+	margin-bottom: 0;
+	padding: 10px;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+	color: white;
+}
+
+.item-box {
+    background: #fff none repeat scroll 0 0;
+    margin-bottom: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding: 10px 10px 10px 10px;
+}
+.item-box {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/**
+Not used on menu, left line
+.left-line-box {
+	border-color: #ddd #ddd transparent;
+	border-style: solid;
+	border-left-width: 1px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-botton-width: 0px;
+}
+*/
+
+h3 {
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px
+}
+div .div-left {
+	text-align: left;
+	float:left;
+	/* background-color:blue; */
+	/* width:50%; */
+	margin-bottom: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 5px;
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+}
+div .div-right {
+	text-align: center;
+	float:right;
+	background-color:#ededed;
+	width:100px;
+	height:50px;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 0px 0px 0px 1px;
+	padding-top: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+}
+
+.add-symbol {
+	cursor: pointer;
+	float: right;
+	font-size: 23px;
+	margin-top: 5px;
+	margin-right: 10px;
+}
+
+select.horizon-align {
+	border: 1px solid #eeeeec;
+	width: 100px !important;
+	margin-top: 5px; 
+	margin-right: 10px;
+	border-radius: 3px;
+	padding: 5px;
+	float:right;
+	background-color: #eeeeee;
+}
+
+input.form-input {
+	height: 30px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	width: 100%;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	font-size: 14px;
+}
+
+/* drop down list on menu */
+.dropdown-menu li a div {
+    white-space: normal;
+}
+.dropdown-noti {
+    min-width: 0;
+    width: 310px;
+}
+.pull-right {
+    float: right;
+}
+
+/* hr */
+.margin-middle {
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+/* Center in Div in Div */
+div.center {
+    position:absolute;
+	background-color: coral;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 100px;
+	font-size: 30px;
+	width: 100px;
+	height: 100%;
+	left:0; right:0;
+	top:0; bottom:0;
+	margin:auto;
+	max-width:100%;
+	max-height:100%;
+}
+
+/* Show more button */
+.show-more-out {
+	overflow: hidden;
+	word-break: break-all;
+}
+
+.show-more {
+	height: 100px;
+	overflow: hidden;
+}
+
+.show-more-button {
+	float: right;
+}

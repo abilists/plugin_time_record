@@ -1,0 +1,97 @@
+
+div.item-bar { 
+    position: relative;
+	z-index: 3;
+	background-color: white;
+	height: 88px;
+	left:0px;
+	margin-bottom: 2px;
+	cursor: pointer;
+	border-color: #9fb5cc;
+	overflow: hidden;
+}
+
+/* Table  */
+table {
+    width:100%;
+}
+
+table, th, td {
+    border: 1px solid #eeeeec;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+/*  text-align: center; */
+}
+tr:hover td {background:#cce0ff}
+
+
+input {
+	border: 1px solid #eeeeec;
+	border-radius: 3px;
+	resize: horizontal;
+}
+
+.table {
+	margin-bottom: 0px;
+}
+
+.pagination {
+	margin: 0px 0;
+}
+
+th.my_profile {
+	border-right: 1px solid white;
+}
+
+/* Table by ul li  */
+.ul-table {
+    list-style-type: none;
+	width: 100%;
+	display: table;
+	table-layout: fixed;
+	overflow: hidden;
+	text-align: center;
+	padding: 0px 0px 0px 0px !important;
+	margin-bottom: 0px !important;
+}
+
+.ul-thead {
+	background-color: #ffffff;
+	border-style: solid;
+	border-width: 1px 0px 1px 0px;
+	border-color: #e2e2e2;
+}
+
+ul.bgrow:hover {
+	background:#cce0ff !important;
+}
+
+ul.nthrow:nth-of-type(odd) {
+	background-color: #f9f9f9;
+}
+
+.li-cell {
+    display: table-cell;
+	padding: 5px;
+	border-style: solid;
+	border-color: #f9f9f9;
+	border-width: 1px 1px 1px 1px;
+	text-align: left;
+}
+
+/* Table by div */
+div.bgrow:hover, div.bgrow:active {
+	background-color: #cce0ff;
+}
+
+/* Line break */
+.table-line-break {
+	table-layout: fixed; 
+	width:100%;
+}
+.line-break {
+	word-wrap: break-word; 
+	overflow-wrap: break-word;
+}

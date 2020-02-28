@@ -1,0 +1,22 @@
+.ad-title01 { 
+	position: absolute; 
+	top: 5%; 
+	left: 40%;
+	width: 50%;
+	color: #4363a2;
+}
+
+h2.ad-title { 
+	font: 30px/24px Helvetica, Sans-Serif;
+}
+
+p.ad-contents { 
+	font: 17px/20px Helvetica, Sans-Serif;
+	color: #5a5a5a;
+}
+
+.ad-img01 { 
+	border: 0.5px solid #dadada; 
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+	width: 100%;
+}

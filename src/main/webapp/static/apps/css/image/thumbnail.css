@@ -1,0 +1,9 @@
+
+.thumbnail-hover img {
+    position: relative;
+    transition: all 0.8s ease-in-out 0s;
+}
+
+.thumbnail-hover:hover img {
+    transform: scale(1.1) rotate(1deg);
+}

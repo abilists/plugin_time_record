@@ -1,0 +1,28 @@
+ul.center {
+	display: inline-block;
+	list-style: none;
+	overflow: hidden; 
+	width:100%; 
+	padding-left:0px;
+	margin: 0px;
+}
+
+ul li.overview {
+	float:left;
+	width: 48.5%;
+	max-width:100%;
+	background: #fff none repeat scroll 0 0;
+	margin: 5px;
+}
+
+.pull-right {
+    float: right;
+}
+
+.breadcrumbs-right-before:before {
+    content: none !important;
+}
+
+.breadcrumbs-right-after:after {
+	border-left: 1em solid #dc7272 !important;
+}
