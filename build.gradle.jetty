@@ -1,6 +1,10 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
+
+// When you build for Jar, please comment with jettyRun
+apply plugin: 'jetty'
+
 apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
 
@@ -34,6 +38,8 @@ buildscript {
 }
 
 version = '0.0.1'
+
+// archivesBaseName = 'pluginSurvey'
 
 repositories {
 	mavenLocal()
@@ -70,6 +76,8 @@ dependencies {
 		exclude group: 'commons-chain', module: 'commons-chain'
 	}
 	compile "io.utility:security:0.0.1"
+	compile 'javax.validation:validation-api:1.1.0.Final'
+
 	compile "org.mybatis:mybatis:3.2.8"
 	compile "org.mybatis:mybatis-spring:1.2.5"
 	compile 'org.springframework:spring-jdbc:' + springVersion
@@ -83,6 +91,16 @@ dependencies {
 	testCompile 'org.springframework:spring-test:' + springVersion
 	testCompile 'javax.servlet:javax.servlet-api:4.0.1'
 	testCompile "junit:junit:4.+"
+}
+
+/**/
+// gradle jettyRun
+jettyRun {
+	httpPort = 9005
+	reload = 'automatic'
+	scanIntervalSeconds = 2
+	// Change context path (base url). otherwise defaults to name of project
+	contextPath = ''
 }
 
 jar {
@@ -101,9 +119,6 @@ jar {
         )
     }
 
-	exclude ("applicationContext.xml")
-	exclude ("logback.xml")
-	exclude ("**.properties")
 }
 
 

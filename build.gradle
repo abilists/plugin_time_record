@@ -1,10 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
-
-// When you build for Jar, please comment with jettyRun
-apply plugin: 'jetty'
-
 apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
 
@@ -38,8 +34,6 @@ buildscript {
 }
 
 version = '0.0.1'
-
-// archivesBaseName = 'pluginSurvey'
 
 repositories {
 	mavenLocal()
@@ -93,20 +87,10 @@ dependencies {
 	testCompile "junit:junit:4.+"
 }
 
-/**/
-// gradle jettyRun
-jettyRun {
-	httpPort = 9005
-	reload = 'automatic'
-	scanIntervalSeconds = 2
-	// Change context path (base url). otherwise defaults to name of project
-	contextPath = ''
-}
-
 jar {
     manifest {
         attributes (
-        	'Specification-Title': 'plugin_survey' + version + '.sfn',
+        	'Specification-Title': 'plugin_survey' + version + '.jar',
         	'Specification-Version': version,
         	'Specification-Vendor': 'Softfran Tech, Inc.',
         	'Built-By': System.properties['user.name'],
@@ -119,6 +103,9 @@ jar {
         )
     }
 
+	exclude ("applicationContext.xml")
+	exclude ("logback.xml")
+	exclude ("**.properties")
 }
 
 
@@ -126,7 +113,7 @@ jar {
 configure(install.repositories.mavenInstaller) {
     pom.project {
 		group = 'com.abilists.plugins'
-		artifactId 'plugin_survey'
+		artifactId 'plugin_time_record'
         inceptionYear '2019'
         packaging 'jar'
         licenses {
@@ -145,7 +132,7 @@ task buildJar << {
 	copy {
 		from "build/libs/plugin_survey-" + version + ".jar"
 		into "${System.getProperty( 'user.dir' )}" + "/../abilists_plugins/plugins"
-		rename { String fileName -> fileName.replace("plugin_survey-" + version + ".jar", "plugin_survey-" + version + ".sfn")}
+//		rename { String fileName -> fileName.replace("plugin_survey-" + version + ".jar", "plugin_survey-" + version + ".sfn")}
 		include '**/*.jar'
 	}
 }

@@ -9,6 +9,7 @@
 		  utr_no BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		  utr_kind VARCHAR(100) NULL,
 		  utr_month VARCHAR(2) NULL,
+		  utr_day VARCHAR(2) NULL,
 		  utr_standard_ampm CHAR(1) NULL,
 		  utr_standard_hour VARCHAR(2) NULL,
 		  utr_start_time TIMESTAMP NULL,
@@ -23,8 +24,8 @@
 		  update_time TIMESTAMP NULL,
 		  PRIMARY KEY (utr_no)
 		) ENGINE=innoDB DEFAULT CHARSET=utf8mb4;
-		CREATE INDEX idx_user_reports_user_id ON abilists.user_time_record (user_id);
-		CREATE INDEX idx_user_reports_insert_time ON abilists.user_time_record (insert_time);
+		CREATE INDEX idx_user_time_record_user_id ON abilists.user_time_record (user_id);
+		CREATE INDEX idx_user_time_record_insert_time ON abilists.user_time_record (insert_time);
 	</update>
 
 </mapper>
