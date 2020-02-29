@@ -3,25 +3,31 @@
 <@layout.myLayout>
 
 <link rel="stylesheet" href="${configBean.contextPath?if_exists}/static/apps/css/abilists/ad.css?2017102207">
+<style>
+	.plugins-box {
+		list-style: none; 
+		width: 220px;
+    	margin: 5px;
+		float: left;
+		border-radius: 3px;
+    	border: 1px solid #eee;
+		padding: 10px;
+	}
+</style>
+
 <div class="item-box">
-<div class="row">
-	<div class="col-md-6">
-		<nav class="breadcrumbs">
-		<ul>
-		<li><a class="menu-works-button" href="${configBean.contextPath?if_exists}/plugins"> Plugins </a></li>
-		<li class="active"><a href="#">Survey</a></li>
-		</ul>
-		</nav>
-	</div>
-	<div class="col-md-6">
-	</div>
-</div>
+	<nav class="breadcrumbs">
+	<ul>
+		<li><a class="menu-works-button" href="${configBean.contextPath?if_exists}/plugins"> <@spring.message "plugins.navi.title"/></a></li>
+		<li class="active"><a href="#"><@spring.message "plugins.main.title"/></a></li>
+	</ul>
+	</nav>
 </div>
 
 <div id="divBodyId" class="row">
 	<div class="col-md-2 right-col-cus sideImg">
 		<div class="item-box" style="border: 0.5px solid #dadada;">
-			<a href="${configBean.baseURL?if_exists}/account">
+			<a href="${configBean.contextPath?if_exists}/account">
 				<img style="border-radius: 4px;" src="${myImgAvatar?if_exists}" id="showImg" width="125" alt="your picture" />
 			</a>
 	    </div>
@@ -37,73 +43,38 @@
 	</div>
 </div>
 
-
 <div class="row">
-  <div class="col-md-12">
-
+<div class="col-sm-12">
 	<div class="caption mittle-size-title middle-works-bg">
-		<h5>
-			<b> Survey </b>
-			<span id="newToggleId" class="glyphicon glyphicon-chevron-down right-symbol-works-button" aria-hidden="true" onClick="newFormToggle();"></span>
-		</h5>
+		<h5><b><@spring.message "plugins.main.title"/></b></h5>
 	</div>
-	<#include "/apps/common/errorMessage.ftl"/>
-	<#include "/apps/common/abilistsSuccess.ftl"/>
-
-	<div class="item-box" id="udtMdataFormId" style="background-color: #f7f5ff; display: none;">
-		<form name="updateForm" class="form-horizontal" action="${configBean.baseURL?if_exists}/works/udtReports" method="post" id="updateFormId" onkeypress="return captureReturnKey(event);">
-	  	  <div class="row">
-		    <div class="col-sm-3 col-md-3" style="padding-right: 5px;">
-		  	</div>
-		  	<div class="col-sm-9 col-md-9">
-	  			<label class="control-label"> report </label> <p class="string-size"><span id="idUdtReports">0</span>/2900</p>
-	  			<textarea class="taForm" style="height: 155px;" id="udtUrReportsId" name="urReport" placeholder="Detail" rows="25" onkeyup="checkByteLength(this, 'idUdtReports', 2900)" onfocus="checkByteLength(this, 'idUdtReports', 2900)"></textarea>
-		  	</div>
-	  	  </div>
-		  <input type="hidden" id="urNoId" name="urNo" />
-		  <input type="hidden" id="tokenId" name="token" />
-		  <br/>
-			<p align="center">
-		      <button type="button" onclick="return confirmData('updateFormId');" class="btn btn-primary" data-toggle="modal">
-		      	confirm
-		      </button>
-		      <button class="btn btn-primary" type="button" onClick="updateFormCancel();">Cancel</button>
-		      <button class="btn btn-danger" type="button" onclick="removeReports()">Delete</button>
-			</p>
-		</form>
+  <div class="item-box" style="overflow: hidden;">
+  <#if mPluginsList??>
+  <#if mPluginsList?has_content>
+	  <#list mPluginsList as mPlugins>
+	  	<li class="plugins-box">
+			<a href="${configBean.contextPath?if_exists}/plugins/${mPlugins.mpName?if_exists}/index">
+			<div style="height: 220px;"><img src="${mPlugins.mpImgUrl?if_exists}" alt="icon"></div>
+			<div style="box-sizing: border-box;">
+				<div><span>Servey</span></div>
+				<div class="title">
+					${mPlugins.mpName?if_exists}
+				</div>
+				<p>${mPlugins.mpExplain?if_exists}</p>
+			</div>
+			</a>
+		</li>
+		</#list>
+	<#else>
+	<div id="restartId" style="margin-bottom: 1px;text-align: center; margin: 50px;">
+		<a class="btn btn-info" href="${configBean.contextPath?if_exists}/admin/plugins/pluginList" style="width: 50%;height: 65px;font-size: 120%;padding: 20px;"> <@spring.message "plugins.main.link.button"/></a>
 	</div>
+  </#if>
+  </#if>
+  </div>
 
-	<div class="item-box">
-		This is a sample plugin.
-	</div>
-
-	<br/>
-    <nav class="text-center">
-	    <ul class="pagination">
-	    <#if model?exists>
-    	<#if model.paging?exists>
-			<#if model.paging.prevPage?exists>
-			<li><a href="sltSurveyList?nowPage=${model.paging.prevPage.nowPage}&allCount=${model.paging.allCount?c}" title="Prev" accesskey="*">Prev</span></a></li>
-			</#if>
-			<#if model.paging.pagingInfoList?has_content>
-				<#list model.paging.pagingInfoList as pageList>
-					<#if model.paging.nowPage?if_exists == pageList.pageNumber?if_exists>
-					<li class="active"><a href="#">${pageList.pageNumber} <span class="sr-only">(current)</span></a></li>
-					<#else>
-					<li><a href="sltReportsList?nowPage=${pageList.pageNumber}&allCount=${model.paging.allCount?c}">${pageList.pageNumber}</a></li>
-					</#if>
-				</#list>
-			</#if>
-			<#if model.paging.nextPage?exists>
-			<li><a href="sltSurveyList?nowPage=${model.paging.nextPage.nowPage}&allCount=${model.paging.allCount?c}" accesskey="#" title="Next">Next</a></li>
-			</#if>
-		</#if>
-		</#if>
-    	</ul>
-    </nav><!-- end #nav -->
-
-  </div><!-- col-md-12 -->
-</div><!-- row -->
+</div>
+</div>
 
 <#include "/apps/common/abilistsPluginsLoadJs.ftl"/>
 

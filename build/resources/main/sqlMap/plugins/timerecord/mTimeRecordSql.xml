@@ -57,7 +57,7 @@
 		  	utr_status = #{utrStatus},
 			update_time = now()
 		WHERE
-			pms_no = #{pmsNo}
+			utr_no = #{utrNo}
 	</update>
 
 	<update id="dltMTimeRecord" parameterType="map">

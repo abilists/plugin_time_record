@@ -76,6 +76,7 @@ dependencies {
 		exclude group: 'commons-chain', module: 'commons-chain'
 	}
 	compile "io.utility:security:0.0.1"
+	compile 'javax.validation:validation-api:1.1.0.Final'
 
 	compile "org.mybatis:mybatis:3.2.8"
 	compile "org.mybatis:mybatis-spring:1.2.5"

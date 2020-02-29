@@ -142,7 +142,7 @@ public class InitiativeServiceImpl extends AbilistsAbstractService implements Pl
 	}
 
 	@Override
-	public String dropTables(String tableName) throws Exception {
+	public String dropTables(String arg0) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
