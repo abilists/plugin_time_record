@@ -21,6 +21,8 @@ import com.abilists.plugins.timerecord.dao.MTimeRecordDao;
 import com.abilists.plugins.timerecord.dao.STimeRecordDao;
 import com.abilists.plugins.timerecord.service.TimeRecordService;
 
+import io.utility.letter.DateUtility;
+
 @Service
 public class TimeRecordServiceImpl extends AbilistsAbstractService implements TimeRecordService {
 
@@ -70,14 +72,25 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 	@Transactional(rollbackFor = {IndexOutOfBoundsException.class, Exception.class}, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public boolean istTimeRecord(IstTimeRecordPara istTimeRecordPara) throws Exception {
-		
+
 		int intResult = 0;
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", istTimeRecordPara.getUserId());
+//		map.put("utrKind", "");
+//		map.put("utrMonth", "");
+//		map.put("utrDay", "");
+//		map.put("utrStandardAmpm", "");
+//		map.put("utrStandardHour", "");
+//		map.put("utrStartTime", "");
+//		map.put("utrEndTime", "");
+//		map.put("utrWorkHour", "");
+//		map.put("utrComment", "");
+
+		logger.info("now >> " + DateUtility.getNowTime());
 
 		try {
-			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).udtMTimeRecord(map);
+			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).istMTimeRecord(map);
 		} catch (IndexOutOfBoundsException ie) {
 			logger.error("IndexOutOfBoundsException error", ie);
 			return false;

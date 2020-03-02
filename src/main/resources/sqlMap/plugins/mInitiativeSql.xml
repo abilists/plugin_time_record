@@ -24,8 +24,8 @@
 		  update_time TIMESTAMP NULL,
 		  PRIMARY KEY (utr_no)
 		) ENGINE=innoDB DEFAULT CHARSET=utf8mb4;
-		CREATE INDEX idx_user_time_record_user_id ON abilists.user_time_record (user_id);
-		CREATE INDEX idx_user_time_record_insert_time ON abilists.user_time_record (insert_time);
+		CREATE INDEX IF NOT EXISTS idx_user_time_record_user_id ON abilists.user_time_record (user_id);
+		CREATE INDEX IF NOT EXISTS idx_user_time_record_insert_time ON abilists.user_time_record (insert_time);
 	</update>
 
 </mapper>
