@@ -21,6 +21,7 @@ import com.abilists.plugins.timerecord.dao.MTimeRecordDao;
 import com.abilists.plugins.timerecord.dao.STimeRecordDao;
 import com.abilists.plugins.timerecord.service.TimeRecordService;
 
+import base.bean.para.CommonPara;
 import io.utility.letter.DateUtility;
 
 @Service
@@ -31,12 +32,31 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 	@Autowired
 	private SqlSession sAbilistsDao;
 
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	private boolean udtTimeRecord(Map<String, Object> map) throws Exception {
+
+		int intResult = 0;
+
+		try {
+			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).udtMTimeRecord(map);
+		} catch (Exception e) {
+			logger.error("Exception error", e);
+		}
+
+		if(intResult < 1) {
+			logger.error("udtTimeRecord error, userId={}", map.get("userId"));
+			return false;
+		}
+
+		return true;
+	}
+
 	@Override
-	public List<TimeRecordModel> sltTimeRecordList(SltTimeRecordPara sltTimeRecordPara) throws Exception {
+	public List<TimeRecordModel> sltTimeRecordList(CommonPara commonPara) throws Exception {
 		List<TimeRecordModel> timeRecordList = null;
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", sltTimeRecordPara.getUserId());
+		map.put("userId", commonPara.getUserId());
 
 		try {
 			sqlSessionSlaveFactory.setDataSource(getDispersionDb());
@@ -55,6 +75,16 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", sltTimeRecordPara.getUserId());
+		
+		if(sltTimeRecordPara.getUtrWorkDay() == null) {
+			String strToday = DateUtility.formatDate(DateUtility.getNowTime(), "yyyy-MM-dd");
+			logger.info("3 workDay=" + strToday  + ", userId = " + sltTimeRecordPara.getUserId());
+			map.put("utrWorkDay", strToday);
+			logger.info("1 workDay=" + sltTimeRecordPara.getUtrWorkDay());
+		} else {
+			map.put("utrWorkDay", sltTimeRecordPara.getUtrWorkDay());
+			logger.info("2 workDay=" + sltTimeRecordPara.getUtrWorkDay());
+		}
 
 		try {
 			sqlSessionSlaveFactory.setDataSource(getDispersionDb());
@@ -76,18 +106,26 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		int intResult = 0;
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", istTimeRecordPara.getUserId());
-//		map.put("utrKind", "");
-//		map.put("utrMonth", "");
-//		map.put("utrDay", "");
-//		map.put("utrStandardAmpm", "");
-//		map.put("utrStandardHour", "");
-//		map.put("utrStartTime", "");
-//		map.put("utrEndTime", "");
-//		map.put("utrWorkHour", "");
-//		map.put("utrComment", "");
 
-		logger.info("now >> " + DateUtility.getNowTime());
+		SltTimeRecordPara sltTimeRecordPara = new SltTimeRecordPara();
+		sltTimeRecordPara.setUserId(istTimeRecordPara.getUserId());
+		sltTimeRecordPara.setUtrWorkDay(istTimeRecordPara.getUtrWorkDay());
+
+		TimeRecordModel timeRecord = this.sltTimeRecord(sltTimeRecordPara);
+		if(timeRecord != null) {
+			logger.warn("There is a time record in today. workday=" + DateUtility.formatDate(timeRecord.getUtrWorkDay(), "yyyy-MM-dd"));
+			UdtTimeRecordPara udtTimeRecordPara = new UdtTimeRecordPara();
+			udtTimeRecordPara.setUtrKind("0");
+			udtTimeRecordPara.setUserId(istTimeRecordPara.getUserId());
+			this.udtStartTime(udtTimeRecordPara);
+
+			return true;
+		}
+
+		map.put("userId", istTimeRecordPara.getUserId());
+		map.put("utrKind", "0");
+		String strToday = DateUtility.formatDate(DateUtility.getNowTime(), "yyyy-MM-dd");
+		map.put("utrWorkDay", strToday);
 
 		try {
 			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).istMTimeRecord(map);
@@ -107,27 +145,31 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		return true;
 	}
 
-	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	@Override
-	public boolean udtTimeRecord(UdtTimeRecordPara udtTimeRecordPara) throws Exception {
-
-		int intResult = 0;
+	public boolean udtStartTime(UdtTimeRecordPara udtTimeRecordPara) throws Exception {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", udtTimeRecordPara.getUserId());
+		map.put("utrKind", udtTimeRecordPara.getUtrKind());
+		String strToday = DateUtility.formatDate(DateUtility.getNowTime(), "yyyy-MM-dd");
+		map.put("utrWorkDay", strToday);		
+		map.put("utrStartTime", DateUtility.getNowTime());
 
-		try {
-			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).udtMTimeRecord(map);
-		} catch (Exception e) {
-			logger.error("Exception error", e);
-		}
-	
-		if(intResult < 1) {
-			logger.error("udtServey error, userId={}", udtTimeRecordPara.getUserId());
-			return false;
-		}
-	
-		return true;
+		return this.udtTimeRecord(map);
+	}
+
+	@Override
+	public boolean udtEndTime(UdtTimeRecordPara udtTimeRecordPara) throws Exception {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", udtTimeRecordPara.getUserId());
+		String strToday = DateUtility.formatDate(DateUtility.getNowTime(), "yyyy-MM-dd");
+		map.put("utrWorkDay", strToday);
+		map.put("utrEndTime", DateUtility.getNowTime());
+		map.put("utrComment", udtTimeRecordPara.getUtrComment());
+		map.put("utrStatus", "1");
+
+		return this.udtTimeRecord(map);
 	}
 
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)

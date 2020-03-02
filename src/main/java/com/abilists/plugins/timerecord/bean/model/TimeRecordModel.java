@@ -11,10 +11,7 @@ public class TimeRecordModel extends BasicModel implements Serializable {
 
 	private long utrNo;
 	private String utrKind;
-	private String utrMonth;
-	private String utrDay;
-	private String utrStandardAmpm;
-	private String utrStandardHour;
+	private Date utrWorkDay;
 	private Date utrStartTime;
 	private Date utrEndTime;
 	private int utrWorkHour;
@@ -37,29 +34,11 @@ public class TimeRecordModel extends BasicModel implements Serializable {
 	public void setUtrKind(String utrKind) {
 		this.utrKind = utrKind;
 	}
-	public String getUtrMonth() {
-		return utrMonth;
+	public Date getUtrWorkDay() {
+		return utrWorkDay;
 	}
-	public void setUtrMonth(String utrMonth) {
-		this.utrMonth = utrMonth;
-	}
-	public String getUtrDay() {
-		return utrDay;
-	}
-	public void setUtrDay(String utrDay) {
-		this.utrDay = utrDay;
-	}
-	public String getUtrStandardAmpm() {
-		return utrStandardAmpm;
-	}
-	public void setUtrStandardAmpm(String utrStandardAmpm) {
-		this.utrStandardAmpm = utrStandardAmpm;
-	}
-	public String getUtrStandardHour() {
-		return utrStandardHour;
-	}
-	public void setUtrStandardHour(String utrStandardHour) {
-		this.utrStandardHour = utrStandardHour;
+	public void setUtrWorkDay(Date utrWorkDay) {
+		this.utrWorkDay = utrWorkDay;
 	}
 	public Date getUtrStartTime() {
 		return utrStartTime;

@@ -9,10 +9,7 @@
 		SELECT
 			utr_no,
 		  	utr_kind,
-		  	utr_month,
-		  	utr_day,
-		  	utr_standard_ampm,
-		  	utr_standard_hour,
+		  	utr_work_day,
 		  	utr_start_time,
 		  	utr_end_time,
 		  	utr_work_hour,
@@ -26,11 +23,36 @@
 		FROM
 			user_time_record
 		WHERE
+			user_id = #{userId} AND
 			utr_delete = '0'
 		ORDER BY
 			update_time DESC
 		LIMIT
 			#{nowPage}, #{row}
+	</select>
+
+	<select id="sltTimeRecord" parameterType="map" 
+		resultType="com.abilists.plugins.timerecord.bean.model.TimeRecordModel">
+		SELECT
+			utr_no,
+		  	utr_kind,
+			utr_work_day,
+		  	utr_start_time,
+		  	utr_end_time,
+		  	utr_work_hour,
+		  	utr_comment,
+		  	utr_permit,
+		  	utr_status,
+		  	utr_delete,
+		  	user_id,
+			insert_time,
+			update_time
+		FROM
+			user_time_record
+		WHERE
+			user_id = #{userId} AND
+			utr_work_day = #{utrWorkDay} AND
+			utr_delete = '0'
 	</select>
 
 </mapper>

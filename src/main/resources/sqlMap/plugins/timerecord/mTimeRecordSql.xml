@@ -7,10 +7,7 @@
 	<insert id="istMTimeRecord" parameterType="map">
 		INSERT INTO user_time_record (
 		  	utr_kind,
-		  	utr_month,
-		  	utr_day,
-		  	utr_standard_ampm,
-		  	utr_standard_hour,
+			utr_work_day,
 		  	utr_start_time,
 		  	utr_end_time,
 		  	utr_work_hour,
@@ -23,11 +20,8 @@
 			update_time
 		) VALUES (
 			#{utrKind},
-			#{utrMonth},
-			#{utrDay},
-			#{utrStandardAmpm},
-			#{utrStandardHour},
-			#{utrStartTime},
+			#{utrWorkDay},
+			now(),
 			#{utrEndTime},
 			#{utrWorkHour},
 			#{utrComment},
@@ -44,20 +38,35 @@
 		UPDATE 
 			user_time_record
 		SET
-		  	utr_kind = #{utrKind},
-		  	utr_month = #{utrMonth},
-		  	utr_day = #{utrDay},
-		  	utr_standard_ampm = #{utrStandardAmpm},
-		  	utr_standard_hour = #{utrStandardHour},
-		  	utr_start_time = #{utrStartTime},
-		  	utr_end_time = #{utrEndTime},
-		  	utr_work_hour = #{utrWorkHour},
-		  	utr_comment = #{utrComment},
-		  	utr_permit = #{utrPermit},
-		  	utr_status = #{utrStatus},
+		<if test="utrKind != null and utrKind !=''">
+			utr_kind = #{utrKind},
+		</if>
+		<if test="utrWorkDay != null and utrWorkDay !=''">
+			utr_work_day = #{utrWorkDay},
+		</if>
+		<if test="utrStartTime != null and utrStartTime !=''">
+			utr_start_time = #{utrStartTime},
+		</if>
+		<if test="utrEndTime != null and utrEndTime !=''">
+			utr_end_time = now(),
+		</if>
+		<if test="utrWorkHour != null and utrWorkHour !=''">
+			utr_work_hour = #{utrWorkHour},
+		</if>
+		<if test="utrComment != null and utrComment !=''">
+			utr_comment = #{utrComment},
+		</if>
+		<if test="utrPermit != null and utrPermit !=''">
+			utr_permit = #{utrPermit},
+		</if>
+		<if test="utrStatus != null and utrStatus !=''">
+			utr_status = #{utrStatus},
+		</if>
 			update_time = now()
 		WHERE
-			utr_no = #{utrNo}
+			user_id = #{userId} AND
+			utr_work_day = #{utrWorkDay} AND
+			utr_delete = '0'
 	</update>
 
 	<update id="dltMTimeRecord" parameterType="map">
