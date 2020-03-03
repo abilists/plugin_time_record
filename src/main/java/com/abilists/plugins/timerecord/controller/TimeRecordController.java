@@ -24,14 +24,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.abilists.bean.AbilistsModel;
-import com.abilists.bean.model.works.UserReportsModel;
-import com.abilists.bean.para.works.SltReportsPara;
 import com.abilists.core.common.bean.CommonBean;
 import com.abilists.core.controller.AbstractBaseController;
 import com.abilists.core.controller.CommonAbilistsController;
 import com.abilists.plugins.timerecord.bean.PluginsModel;
 import com.abilists.plugins.timerecord.bean.model.TimeRecordModel;
-import com.abilists.plugins.timerecord.bean.para.IstTimeRecordPara;
 import com.abilists.plugins.timerecord.bean.para.SltTimeRecordPara;
 import com.abilists.plugins.timerecord.bean.para.UdtTimeRecordPara;
 import com.abilists.plugins.timerecord.service.TimeRecordService;
@@ -50,17 +47,21 @@ public class TimeRecordController extends CommonAbilistsController {
 	private CommonBean commonBean;
 
 	@RequestMapping(value = {"/", "", "index"})
-	public String index(@Validated CommonPara commonPara, HttpServletRequest request, ModelMap model) throws Exception {
+	public String index(@Validated SltTimeRecordPara sltTimeRecordPara, HttpServletRequest request, ModelMap model) throws Exception {
 		AbilistsModel abilistsModel = new AbilistsModel();
 		abilistsModel.setNavi("plugins");
-		abilistsModel.setMenu("timeRecord");
+		abilistsModel.setMenu("timerecord");
 
 		PluginsModel pluginsModel = new PluginsModel();
 
 		// Set user id
-		this.handleSessionInfo(request.getSession(), commonPara);
+		this.handleSessionInfo(request.getSession(), sltTimeRecordPara);
 
-		pluginsModel.setTimeRecordList(timeRecordService.sltTimeRecordList(commonPara));
+		// Get today infomation
+		pluginsModel.setTimeRecord(timeRecordService.sltTimeRecord(sltTimeRecordPara));
+
+		// Get time recorded list
+		pluginsModel.setTimeRecordList(timeRecordService.sltTimeRecordList(sltTimeRecordPara));
 
 		model.addAttribute("model", abilistsModel);
 		model.addAttribute("plugins", pluginsModel);
@@ -89,34 +90,52 @@ public class TimeRecordController extends CommonAbilistsController {
 		return timeRecord;
 	}
 
-	@RequestMapping(value = { "istTimeRecord" })
-	public String istTimeRecord(@Valid IstTimeRecordPara istTimeRecordPara, BindingResult bindingResult, ModelMap model,
+	@RequestMapping(value = { "startTime" })
+	public String startTime(@Valid CommonPara commonPara, BindingResult bindingResult, ModelMap model,
 			HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes)
 			throws Exception {
 
 		AbilistsModel abilistsModel = new AbilistsModel();
 		abilistsModel.setNavi("plugins");
-		abilistsModel.setMenu("timeRecord");
+		abilistsModel.setMenu("timerecord");
 
 		// Set language in Locale.
 		Locale locale = RequestContextUtils.getLocale(request);
 
+		// Set user id
+		this.handleSessionInfo(request.getSession(), commonPara);
+
 		Map<String, String> mapErrorMessage = new HashMap<String, String>();
-		// If it occurs errors, set the default value.
-		if (bindingResult.hasErrors()) {
-			logger.error("udtProjects - There are parameter errors.");
-			response.setStatus(400);
-			mapErrorMessage = this.handleErrorMessages(bindingResult.getAllErrors(), locale);
-			model.addAttribute("mapErrorMessage",  mapErrorMessage);
-			return "apps/errors/parameterErrors";
+		// Execute the transaction
+		if (!timeRecordService.istStartTime(commonPara)) {
+			logger.error("istTimeRecord - inserting is error. userId={}", commonPara.getUserId());
+			mapErrorMessage.put("errorMessage", message.getMessage("parameter.insert.error.message", null, locale));
+			model.addAttribute("mapErrorMessage", mapErrorMessage);
+			return "apps/errors/systemErrors";
 		}
 
+		return "redirect:/plugins/timerecord";
+	}
+
+	@RequestMapping(value = { "endTime" })
+	public String endTime(@Valid CommonPara commonPara, BindingResult bindingResult, ModelMap model,
+			HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes)
+			throws Exception {
+
+		AbilistsModel abilistsModel = new AbilistsModel();
+		abilistsModel.setNavi("plugins");
+		abilistsModel.setMenu("timerecord");
+
+		// Set language in Locale.
+		Locale locale = RequestContextUtils.getLocale(request);
+
 		// Set user id
-		this.handleSessionInfo(request.getSession(), istTimeRecordPara);
+		this.handleSessionInfo(request.getSession(), commonPara);
 
 		// Execute the transaction
-		if (!timeRecordService.istTimeRecord(istTimeRecordPara)) {
-			logger.error("istTimeRecord - inserting is error. userId={}", istTimeRecordPara.getUserId());
+		Map<String, String> mapErrorMessage = new HashMap<String, String>();
+		if (!timeRecordService.udtEndTime(commonPara)) {
+			logger.error("endTime - updating is error. userId={}", commonPara.getUserId());
 			mapErrorMessage.put("errorMessage", message.getMessage("parameter.insert.error.message", null, locale));
 			model.addAttribute("mapErrorMessage", mapErrorMessage);
 			return "apps/errors/systemErrors";
@@ -132,7 +151,7 @@ public class TimeRecordController extends CommonAbilistsController {
 
 		AbilistsModel abilistsModel = new AbilistsModel();
 		abilistsModel.setNavi("plugins");
-		abilistsModel.setMenu("timeRecord");
+		abilistsModel.setMenu("timerecord");
 
 		// Set language in Locale.
 		Locale locale = RequestContextUtils.getLocale(request);
@@ -151,7 +170,7 @@ public class TimeRecordController extends CommonAbilistsController {
 		this.handleSessionInfo(request.getSession(), udtTimeRecordPara);
 
 		// Execute the transaction
-		if (!timeRecordService.udtEndTime(udtTimeRecordPara)) {
+		if (!timeRecordService.udtTimeRecord(udtTimeRecordPara)) {
 			logger.error("udtTimeRecord - updating is error. userId={}, utrNo={}", udtTimeRecordPara.getUserId(), udtTimeRecordPara.getUtrNo());
 			mapErrorMessage.put("errorMessage", message.getMessage("parameter.update.error.message", null, locale));
 			model.addAttribute("mapErrorMessage", mapErrorMessage);

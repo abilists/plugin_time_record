@@ -1,8 +1,13 @@
 package com.abilists.plugins.timerecord.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -14,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.abilists.core.service.AbilistsAbstractService;
 import com.abilists.plugins.timerecord.bean.model.TimeRecordModel;
-import com.abilists.plugins.timerecord.bean.para.IstTimeRecordPara;
 import com.abilists.plugins.timerecord.bean.para.SltTimeRecordPara;
 import com.abilists.plugins.timerecord.bean.para.UdtTimeRecordPara;
 import com.abilists.plugins.timerecord.dao.MTimeRecordDao;
@@ -38,7 +42,7 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		int intResult = 0;
 
 		try {
-			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).udtMTimeRecord(map);
+			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).udtTimeRecord(map);
 		} catch (Exception e) {
 			logger.error("Exception error", e);
 		}
@@ -77,13 +81,11 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		map.put("userId", sltTimeRecordPara.getUserId());
 		
 		if(sltTimeRecordPara.getUtrWorkDay() == null) {
+			// For insert first
 			String strToday = DateUtility.formatDate(DateUtility.getNowTime(), "yyyy-MM-dd");
-			logger.info("3 workDay=" + strToday  + ", userId = " + sltTimeRecordPara.getUserId());
 			map.put("utrWorkDay", strToday);
-			logger.info("1 workDay=" + sltTimeRecordPara.getUtrWorkDay());
 		} else {
 			map.put("utrWorkDay", sltTimeRecordPara.getUtrWorkDay());
-			logger.info("2 workDay=" + sltTimeRecordPara.getUtrWorkDay());
 		}
 
 		try {
@@ -92,6 +94,7 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 			if(timeRecord == null) {
 				logger.error("There is no user default options data. please insert your default data.");
 			}
+
 		} catch (Exception e) {
 			logger.error("sltOptions Exception error", e);
 		}
@@ -101,34 +104,28 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 
 	@Transactional(rollbackFor = {IndexOutOfBoundsException.class, Exception.class}, propagation = Propagation.REQUIRES_NEW)
 	@Override
-	public boolean istTimeRecord(IstTimeRecordPara istTimeRecordPara) throws Exception {
+	public boolean istStartTime(CommonPara commonPara) throws Exception {
 
 		int intResult = 0;
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		SltTimeRecordPara sltTimeRecordPara = new SltTimeRecordPara();
-		sltTimeRecordPara.setUserId(istTimeRecordPara.getUserId());
-		sltTimeRecordPara.setUtrWorkDay(istTimeRecordPara.getUtrWorkDay());
+		sltTimeRecordPara.setUserId(commonPara.getUserId());
 
 		TimeRecordModel timeRecord = this.sltTimeRecord(sltTimeRecordPara);
 		if(timeRecord != null) {
-			logger.warn("There is a time record in today. workday=" + DateUtility.formatDate(timeRecord.getUtrWorkDay(), "yyyy-MM-dd"));
-			UdtTimeRecordPara udtTimeRecordPara = new UdtTimeRecordPara();
-			udtTimeRecordPara.setUtrKind("0");
-			udtTimeRecordPara.setUserId(istTimeRecordPara.getUserId());
-			this.udtStartTime(udtTimeRecordPara);
-
+			logger.info("The start time is already recorded.");
 			return true;
 		}
 
-		map.put("userId", istTimeRecordPara.getUserId());
+		map.put("userId", commonPara.getUserId());
 		map.put("utrKind", "0");
 		String strToday = DateUtility.formatDate(DateUtility.getNowTime(), "yyyy-MM-dd");
 		map.put("utrWorkDay", strToday);
 
 		try {
-			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).istMTimeRecord(map);
+			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).istTimeRecord(map);
 		} catch (IndexOutOfBoundsException ie) {
 			logger.error("IndexOutOfBoundsException error", ie);
 			return false;
@@ -138,36 +135,82 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		}
 		
 		if(intResult < 1) {
-			logger.error("istServey error, userId={}", istTimeRecordPara.getUserId());
+			logger.error("istServey error, userId={}", commonPara.getUserId());
 			return false;
 		}
 	
 		return true;
 	}
 
+	@Transactional(rollbackFor = {IllegalArgumentException.class, Exception.class}, propagation = Propagation.REQUIRES_NEW)
 	@Override
-	public boolean udtStartTime(UdtTimeRecordPara udtTimeRecordPara) throws Exception {
+	public boolean udtEndTime(CommonPara commonPara) throws Exception {
+
+		SltTimeRecordPara sltTimeRecordPara = new SltTimeRecordPara();
+		sltTimeRecordPara.setUserId(commonPara.getUserId());
+
+		TimeRecordModel timeRecord = this.sltTimeRecord(sltTimeRecordPara);
+		if(timeRecord == null) {
+			logger.error("There is no today starting time information. userId={}", commonPara.getUserId());
+			return false;
+		}
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", udtTimeRecordPara.getUserId());
-		map.put("utrKind", udtTimeRecordPara.getUtrKind());
-		String strToday = DateUtility.formatDate(DateUtility.getNowTime(), "yyyy-MM-dd");
-		map.put("utrWorkDay", strToday);		
-		map.put("utrStartTime", DateUtility.getNowTime());
+		try {
+			Date endDate = DateUtility.getNowTime();
+			// End date(when the last time you worked) - Start date
+			long diff = endDate.getTime() - timeRecord.getUtrStartTime().getTime();
+			String diffTime = DateUtility.getDurationBreakdown(diff);
+
+			map.put("userId", commonPara.getUserId());
+			String strToday = DateUtility.formatDate(endDate, "yyyy-MM-dd");
+			map.put("utrWorkDay", strToday);
+			// Insert the end time with now() in SQL if there is data on utrEndTime
+			map.put("utrEndTime", DateUtility.getNowTime());
+			map.put("utrWorkHour", diffTime);
+			map.put("utrStatus", "1");
+
+		} catch (Exception e) {
+			logger.error("udtEndTime, Exception error", e);
+			return false;
+		}
 
 		return this.udtTimeRecord(map);
 	}
 
+	@Transactional(rollbackFor = {IllegalArgumentException.class, Exception.class}, propagation = Propagation.REQUIRES_NEW)
 	@Override
-	public boolean udtEndTime(UdtTimeRecordPara udtTimeRecordPara) throws Exception {
+	public boolean udtTimeRecord(UdtTimeRecordPara udtTimeRecordPara) throws Exception {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", udtTimeRecordPara.getUserId());
-		String strToday = DateUtility.formatDate(DateUtility.getNowTime(), "yyyy-MM-dd");
-		map.put("utrWorkDay", strToday);
-		map.put("utrEndTime", DateUtility.getNowTime());
-		map.put("utrComment", udtTimeRecordPara.getUtrComment());
-		map.put("utrStatus", "1");
+		
+		try {
+			map.put("userId", udtTimeRecordPara.getUserId());
+			map.put("utrKind", udtTimeRecordPara.getUtrKind());
+			map.put("utrWorkDay", udtTimeRecordPara.getUtrWorkDay());
+
+			String [] strDay = udtTimeRecordPara.getUtrWorkDay().split("-");
+			String [] strStartTime = udtTimeRecordPara.getUtrStartTime().split(":");	
+			Date startDate = DateUtility.getDaySet(Integer.parseInt(strDay[0]), Integer.parseInt(strDay[1]), Integer.parseInt(strDay[2]), 
+					Integer.parseInt(strStartTime[0]), Integer.parseInt(strStartTime[1]), Integer.parseInt(strStartTime[2]));
+
+			String [] strEndTime = udtTimeRecordPara.getUtrEndTime().split(":");		
+			Date endDate = DateUtility.getDaySet(Integer.parseInt(strDay[0]), Integer.parseInt(strDay[1]), Integer.parseInt(strDay[2]), 
+					Integer.parseInt(strEndTime[0]), Integer.parseInt(strEndTime[1]), Integer.parseInt(strEndTime[2]));
+
+			map.put("utrStartTime", startDate);
+			map.put("utrEndTime", endDate);
+			
+			// End date(when the last time you worked) - Start date
+			long diff = endDate.getTime() - startDate.getTime();
+			String diffTime = DateUtility.getDurationBreakdown(diff);
+			map.put("utrWorkHour", diffTime);
+			map.put("utrComment", udtTimeRecordPara.getUtrComment());
+			map.put("utrStatus", "1");
+		} catch (Exception e) {
+			logger.error("udtTimeRecord, Exception error", e);
+			return false;
+		}
 
 		return this.udtTimeRecord(map);
 	}
@@ -182,13 +225,13 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		map.put("userId", udtSurveyPara.getUserId());
 
 		try {
-			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).dltMTimeRecord(map);
+			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).dltTimeRecord(map);
 		} catch (Exception e) {
 			logger.error("Exception error", e);
 		}
 
 		if(intResult < 1) {
-			logger.error("dltServey error, userId={}", udtSurveyPara.getUserId());
+			logger.error("dltTimeRecord error, userId={}", udtSurveyPara.getUserId());
 			return false;
 		}
 

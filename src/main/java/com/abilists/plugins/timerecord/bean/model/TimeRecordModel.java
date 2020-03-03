@@ -14,7 +14,7 @@ public class TimeRecordModel extends BasicModel implements Serializable {
 	private Date utrWorkDay;
 	private Date utrStartTime;
 	private Date utrEndTime;
-	private int utrWorkHour;
+	private String utrWorkHour;
 	private String utrComment;
 	private String utrPermit;
 	private String utrStatus;
@@ -52,10 +52,10 @@ public class TimeRecordModel extends BasicModel implements Serializable {
 	public void setUtrEndTime(Date utrEndTime) {
 		this.utrEndTime = utrEndTime;
 	}
-	public int getUtrWorkHour() {
+	public String getUtrWorkHour() {
 		return utrWorkHour;
 	}
-	public void setUtrWorkHour(int utrWorkHour) {
+	public void setUtrWorkHour(String utrWorkHour) {
 		this.utrWorkHour = utrWorkHour;
 	}
 	public String getUtrComment() {

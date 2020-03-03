@@ -71,7 +71,7 @@ dependencies {
 		exclude group: 'commons-chain', module: 'commons-chain'
 	}
 	compile "io.utility:security:0.0.1"
-	compile "io.utility:letter:0.0.2"
+	compile "io.utility:letter:0.0.3"
 
 	compile 'javax.validation:validation-api:1.1.0.Final'
 

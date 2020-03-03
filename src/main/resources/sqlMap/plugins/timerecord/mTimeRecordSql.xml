@@ -4,7 +4,7 @@
 
 <mapper namespace="com.abilists.plugins.timerecord.dao.MTimeRecordDao">
 
-	<insert id="istMTimeRecord" parameterType="map">
+	<insert id="istTimeRecord" parameterType="map">
 		INSERT INTO user_time_record (
 		  	utr_kind,
 			utr_work_day,
@@ -34,7 +34,7 @@
 		)
 	</insert>
 
-	<update id="udtMTimeRecord" parameterType="map">
+	<update id="udtTimeRecord" parameterType="map">
 		UPDATE 
 			user_time_record
 		SET
@@ -48,7 +48,7 @@
 			utr_start_time = #{utrStartTime},
 		</if>
 		<if test="utrEndTime != null and utrEndTime !=''">
-			utr_end_time = now(),
+			utr_end_time = #{utrEndTime},
 		</if>
 		<if test="utrWorkHour != null and utrWorkHour !=''">
 			utr_work_hour = #{utrWorkHour},
@@ -69,7 +69,7 @@
 			utr_delete = '0'
 	</update>
 
-	<update id="dltMTimeRecord" parameterType="map">
+	<update id="dltTimeRecord" parameterType="map">
 		UPDATE 
 			user_time_record
 		SET

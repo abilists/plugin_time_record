@@ -26,7 +26,7 @@
 			user_id = #{userId} AND
 			utr_delete = '0'
 		ORDER BY
-			update_time DESC
+			utr_work_day DESC
 		LIMIT
 			#{nowPage}, #{row}
 	</select>
