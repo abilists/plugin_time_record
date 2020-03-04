@@ -23,7 +23,9 @@
 		FROM
 			user_time_record
 		WHERE
+		<if test="userId != null and userId != ''">
 			user_id = #{userId} AND
+		</if>
 			utr_delete = '0'
 		ORDER BY
 			utr_work_day DESC
@@ -52,6 +54,18 @@
 		WHERE
 			user_id = #{userId} AND
 			utr_work_day = #{utrWorkDay} AND
+			utr_delete = '0'
+	</select>
+
+	<select id="sltTimeRecordSum" parameterType="map" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*) as cnt
+		FROM
+			user_time_record
+		WHERE
+		<if test="userId != null and userId != ''">
+			user_id = #{userId} AND
+		</if>
 			utr_delete = '0'
 	</select>
 

@@ -1,13 +1,9 @@
 package com.abilists.plugins.timerecord.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -53,6 +49,22 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		}
 
 		return true;
+	}
+
+	@Override
+	public int sltTimeRecordSum(CommonPara commonPara) throws Exception {
+		int sum = 0;
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", commonPara.getUserId());
+
+		try {
+			sum = sAbilistsDao.getMapper(STimeRecordDao.class).sltTimeRecordSum(map);
+		} catch (Exception e) {
+			logger.error("Exception error", e);
+		}
+
+		return sum;
 	}
 
 	@Override

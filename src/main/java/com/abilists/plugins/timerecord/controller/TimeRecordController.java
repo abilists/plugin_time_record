@@ -60,13 +60,17 @@ public class TimeRecordController extends CommonAbilistsController {
 		// Get today infomation
 		pluginsModel.setTimeRecord(timeRecordService.sltTimeRecord(sltTimeRecordPara));
 
+		// Set Paging list
+		int intSum = timeRecordService.sltTimeRecordSum(sltTimeRecordPara);
+		abilistsModel.setPaging(timeRecordService.makePaging(sltTimeRecordPara, intSum));
+
 		// Get time recorded list
 		pluginsModel.setTimeRecordList(timeRecordService.sltTimeRecordList(sltTimeRecordPara));
 
 		model.addAttribute("model", abilistsModel);
 		model.addAttribute("plugins", pluginsModel);
 
-		return "apps/plugins/timerecord/index";
+		return "apps/timerecord/index";
 	}
 
 	@RequestMapping(value = "/sltTimeRecordAjax")
@@ -189,7 +193,7 @@ public class TimeRecordController extends CommonAbilistsController {
 
     	timeRecordService.sltTimeRecordList(sltTimeRecordPara);
 
-	   	return "apps/plugins/timerecord/index";
+	   	return "apps/timerecord/index";
 	}
 
 }

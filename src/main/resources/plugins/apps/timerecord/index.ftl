@@ -10,43 +10,6 @@
     font-size: x-large;
 }
 
-.table-li {
-	width: 100%;
-}
-
-.time-li1 {width: 180px;}
-.time-li2 {width: 170px;}
-.time-li3 {width: 170px;}
-.time-li4 {width: 170px;}
-.time-li5 {width: 170px;}
-.time-li6 {width: 100px;}
-
-.table-ul-header {
-	background: linear-gradient(to bottom, #e8e8e8 0%, #e4e4e4 66%, #E1E1E1 100%);
-}
-
-.table-ul {
-	list-style: none;
-	width: 100%;
-	border-collapse: collapse;
-	border: 1px solid #EEEEEE;
-	margin-bottom: 0px;
-	padding: 0px;
-}
-
-.table-ul li{
-	padding: 10px;
-	display:table-cell;
-	border-right: 1px solid #EEEEEE;
-}
-
-.ul-hover:nth-child(2n+1) { 
-	background-color: #f7f7f7; 
-}
-.ul-hover:hover { 
-	background-color: #cce0ff;
-}
-
 </style>
 
 <div class="row">
@@ -191,19 +154,19 @@
 	    <#if model?exists>
 	  	<#if model.paging?exists>
 			<#if model.paging.prevPage?exists>
-			<li><a href="sltTimeRecordList?nowPage=${model.paging.prevPage.nowPage}&allCount=${model.paging.allCount?c}" title="Prev" accesskey="*">Prev</span></a></li>
+			<li><a href="/plugins/timerecord?nowPage=${model.paging.prevPage.nowPage}&allCount=${model.paging.allCount?c}" title="Prev" accesskey="*">Prev</span></a></li>
 			</#if>
 			<#if model.paging.pagingInfoList?has_content>
 				<#list model.paging.pagingInfoList as pageList>
 					<#if model.paging.nowPage?if_exists == pageList.pageNumber?if_exists>
 					<li class="active"><a href="#">${pageList.pageNumber} <span class="sr-only">(current)</span></a></li>
 					<#else>
-					<li><a href="sltTimeRecordList?nowPage=${pageList.pageNumber}&allCount=${model.paging.allCount?c}">${pageList.pageNumber}</a></li>
+					<li><a href="/plugins/timerecord?nowPage=${pageList.pageNumber}&allCount=${model.paging.allCount?c}">${pageList.pageNumber}</a></li>
 					</#if>
 				</#list>
 			</#if>
 			<#if model.paging.nextPage?exists>
-			<li><a href="sltTimeRecordList?nowPage=${model.paging.nextPage.nowPage}&allCount=${model.paging.allCount?c}" accesskey="#" title="Next">Next</a></li>
+			<li><a href="/plugins/timerecord?nowPage=${model.paging.nextPage.nowPage}&allCount=${model.paging.allCount?c}" accesskey="#" title="Next">Next</a></li>
 			</#if>
 		</#if>
 		</#if>

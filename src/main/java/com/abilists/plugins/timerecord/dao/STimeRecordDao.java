@@ -13,5 +13,6 @@ public interface STimeRecordDao {
 
 	public List<TimeRecordModel> sltTimeRecordList(Map<String, Object> map) throws SQLException;
 	public TimeRecordModel sltTimeRecord(Map<String, Object> map) throws SQLException;
+	public int sltTimeRecordSum(Map<String, Object> map) throws SQLException;
 
 }
