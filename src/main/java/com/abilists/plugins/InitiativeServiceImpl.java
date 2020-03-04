@@ -26,7 +26,7 @@ public class InitiativeServiceImpl extends AbilistsAbstractService implements Pl
 	final Logger logger = LoggerFactory.getLogger(InitiativeServiceImpl.class);
 	final String INITIATIVE_SQL = "/sqlMap/plugins/initiativeSql.txt";
 	final String MY_DRIVER = "org.h2.Driver";
-	final String MY_URL = "jdbc:h2:~/.abilists/h2db/v1.2/abilists;IGNORECASE=TRUE;DB_CLOSE_DELAY=10;MODE=MYSQL;AUTO_RECONNECT=TRUE;INIT=create schema if not exists abilists\\;SET SCHEMA abilists;AUTO_SERVER=TRUE";
+	final String MY_URL = "jdbc:h2:~/.abilists/h2db/v1.3/abilists;IGNORECASE=TRUE;DB_CLOSE_DELAY=10;MODE=MYSQL;AUTO_RECONNECT=TRUE;INIT=create schema if not exists abilists\\;SET SCHEMA abilists;AUTO_SERVER=TRUE";
 
 	@Override
 	public String createTables(String tableName) throws Exception {

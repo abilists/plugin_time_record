@@ -90,7 +90,7 @@ dependencies {
 	compile 'org.springframework:spring-webmvc:' + springVersion
 	compile 'org.springframework:spring-context:' + springVersion
 	compile "org.apache.tomcat:tomcat-servlet-api:8.5.5"
-	compile 'com.h2database:h2:1.4.196'
+	compile 'com.h2database:h2:1.4.200'
 
 	provided "org.apache.tomcat:tomcat-servlet-api:8.5.42"
 
