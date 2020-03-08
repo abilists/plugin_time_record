@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,10 +27,10 @@ public class InitiativeServiceImpl extends AbilistsAbstractService implements Pl
 	final Logger logger = LoggerFactory.getLogger(InitiativeServiceImpl.class);
 	final String INITIATIVE_SQL = "/sqlMap/plugins/initiativeSql.txt";
 	final String MY_DRIVER = "org.h2.Driver";
-	final String MY_URL = "jdbc:h2:~/.abilists/h2db/v1.3/abilists;IGNORECASE=TRUE;DB_CLOSE_DELAY=10;MODE=MYSQL;AUTO_RECONNECT=TRUE;INIT=create schema if not exists abilists\\;SET SCHEMA abilists;AUTO_SERVER=TRUE";
+//	final String MY_URL = "jdbc:h2:~/.abilists/h2db/v1.3/abilists;IGNORECASE=TRUE;DB_CLOSE_DELAY=10;MODE=MYSQL;AUTO_RECONNECT=TRUE;INIT=create schema if not exists abilists\\;SET SCHEMA abilists;AUTO_SERVER=TRUE";
 
 	@Override
-	public String createTables(String tableName) throws Exception {
+	public String createTables(HashMap<String, String> mapHash) throws Exception {
 		logger.info("====================================Start to create======================================");
 		String strReadResult = null;
 	    StringBuffer sbSql = new StringBuffer();
@@ -53,12 +54,33 @@ public class InitiativeServiceImpl extends AbilistsAbstractService implements Pl
 		PreparedStatement preparedStmt = null;
 	    try {
 	      Class.forName(MY_DRIVER);
-	      conn = DriverManager.getConnection(MY_URL, "sa", "admin");
+	      conn = DriverManager.getConnection(mapHash.get(PluginService.DB_URL),  mapHash.get(PluginService.DB_USERNAME), mapHash.get(PluginService.DB_PASSWORD));
+
+//	      Boolean tableExist = false;
+//	      PreparedStatement preparedStatement = conn.prepareStatement("SHOW TABLES FROM ABILISTS;");
+//	      Boolean pexeute = preparedStatement.execute();
+//	      if(pexeute) {
+//	    	  ResultSet resultSet = preparedStatement.getResultSet();
+//	          while (resultSet.next()) {
+//	        	  if(resultSet.getString(resultSet.getRow()).equals(mapHash.get(PluginService.TABLE_NAME))) {
+//	              	  tableExist = true;
+//	              	  logger.info("There is the same table name in ABILISTS.");
+//	              	  break;
+//                  }
+//              }
+//          }
+//	      // There is the same table name, please check the table on your Schema
+//	      if(tableExist) {
+//	    	  logger.error("There is the same table name, please check the table on your Schema. table name=" + mapHash.get(PluginService.TABLE_NAME));
+//	    	  return "false";
+//	      }
+
 	      preparedStmt = conn.prepareStatement(sbSql.toString());
 	      preparedStmt.execute();
 	    }
 	    catch (Exception e) {
 	      logger.error("Exception", e);
+	      logger.error("DB URL=" + mapHash.get(PluginService.DB_URL) + ", username=" + mapHash.get(PluginService.DB_USERNAME) + ", password=" + mapHash.get(PluginService.DB_PASSWORD));
 	      return "false";
 	    } finally {
 	    	if(preparedStmt != null) {
