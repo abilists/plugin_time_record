@@ -37,7 +37,7 @@ buildscript {
 	}
 }
 
-version = '0.0.9'
+version = '0.1.0'
 
 // archivesBaseName = 'pluginSurvey'
 
@@ -78,7 +78,7 @@ dependencies {
 		exclude group: 'commons-chain', module: 'commons-chain'
 	}
 	compile "io.utility:security:0.0.1"
-	compile "io.utility:letter:0.0.3"
+	compile "io.utility:letter:0.0.4"
     compile "io.utility:api:0.0.4"
 	compile "io.utility:email:0.0.3"
 

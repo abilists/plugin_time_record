@@ -1,6 +1,7 @@
 package com.abilists.plugins.timerecord.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.abilists.core.service.PagingService;
 import com.abilists.plugins.timerecord.bean.model.TimeRecordModel;
@@ -15,6 +16,7 @@ public interface TimeRecordService extends PagingService {
 	public int sltTimeRecordSum(CommonPara commonPara) throws Exception;
 	public TimeRecordModel sltTimeRecord(SltTimeRecordPara sltTimeRecordPara) throws Exception;
 
+	public boolean istStartTimeRecored(Map<String, Object> map) throws Exception;
 	public boolean istStartTime(CommonPara commonPara) throws Exception;
 	public boolean udtEndTime(CommonPara commonPara) throws Exception;
 	public boolean udtTimeRecord(UdtTimeRecordPara udtTimeRecordPara) throws Exception;

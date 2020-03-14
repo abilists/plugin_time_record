@@ -51,7 +51,7 @@ var utrEndTimeInput = document.getElementById("utrEndTimeId");
 var utrCommentInput = document.getElementById("utrCommentId");
 var tokenInput = document.getElementById("tokenId");
 
-function selectTimeRecord(x, utrWorkDay) {
+function selectTimeRecord(x, utrNo, utrWorkDay) {
 
 	$("#udtMdataFormId").insertAfter($(x));
 
@@ -62,7 +62,7 @@ function selectTimeRecord(x, utrWorkDay) {
             url: 'timerecord/sltTimeRecordAjax',
             contentType: "application/json",
             dataType: "json",
-            data: '{ "utrWorkDay" : "' + utrWorkDay + '"}',
+            data: '{ "utrNo" : "' + utrNo + '", "utrWorkDay" : "' + utrWorkDay + '"}',
             cache: false,
             beforeSend: function(xhr, settings) {
             	console.log("before send");

@@ -28,9 +28,36 @@
 		</if>
 			utr_delete = '0'
 		ORDER BY
-			utr_work_day DESC
+			utr_work_day DESC, UTR_NO DESC
 		LIMIT
 			#{nowPage}, #{row}
+	</select>
+
+	<select id="sltTimeRecordTop" parameterType="map" 
+		resultType="com.abilists.plugins.timerecord.bean.model.TimeRecordModel">
+		SELECT
+			utr_no,
+		  	utr_kind,
+			utr_work_day,
+		  	utr_start_time,
+		  	utr_end_time,
+		  	utr_work_hour,
+		  	utr_comment,
+		  	utr_permit,
+		  	utr_status,
+		  	utr_delete,
+		  	user_id,
+			insert_time,
+			update_time
+		FROM
+			user_time_record
+		WHERE
+			user_id = #{userId} AND
+			utr_delete = '0'
+		ORDER BY 
+			utr_work_day DESC 
+		LIMIT
+			0, 1
 	</select>
 
 	<select id="sltTimeRecord" parameterType="map" 
@@ -52,6 +79,9 @@
 		FROM
 			user_time_record
 		WHERE
+		<if test="utrNo != null and utrNo != ''">
+			utr_no = #{utrNo} AND
+		</if>
 			user_id = #{userId} AND
 			utr_work_day = #{utrWorkDay} AND
 			utr_delete = '0'

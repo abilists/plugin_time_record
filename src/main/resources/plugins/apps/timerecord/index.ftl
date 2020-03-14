@@ -29,7 +29,7 @@
 		</div>
 		<div class="col-sm-6">
 			<form name="leaveForm" action="${configBean.contextPath?if_exists}/plugins/timerecord/endTime" method="post">
-				<button type="submit" class="btn btn-warning btn-lg large-button <#if plugins.timeRecord??><#if plugins.timeRecord.utrEndTime?has_content>active</#if></#if>">
+				<button type="submit" class="btn btn-warning btn-lg large-button <#if plugins.timeRecord??><#if plugins.timeRecord.utrEndTime?has_content>active</#if></#if>" <#if plugins.timeRecord??><#else>style="background-color: gray;border-color: gray;" disabled</#if> >
 				퇴근하기 <#if plugins.timeRecord??><#if plugins.timeRecord.utrEndTime?has_content><small>( ${plugins.timeRecord.utrEndTime?string('HH:mm:ss')?if_exists} )</small></#if></#if>
 				</button>
 			</form>
@@ -43,6 +43,7 @@
 	  	  		<label class="control-label">근무 종류</label>
 				<select id="utrKindId" class="form-control" name="utrKind" >
 					<option value="0">상근</option>
+					<option value="2">휴일</option>
 					<option value="3">외근</option>
 					<option value="4">출장</option>
 					<option value="5">연수</option>
@@ -67,14 +68,14 @@
 	  			<label class="control-label">출근 시간</label>
 			  	<div class="input-group" style="float:right; width: 100%;">
 			  		<span class="input-group-addon"><span id="calendarId" class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
-			  		<input class="form-control" type="text" id="utrStartTimeId" name="utrStartTime" placeholder="02:09:38" />
+			  		<input class="form-control" type="text" id="utrStartTimeId" name="utrStartTime" maxlength="8" size="8" placeholder="09:00:00" />
 			  	</div>
 		  	</div>
 	  	  	<div class="col-sm-3 col-md-3">	
 	  			<label class="control-label">퇴근 시간</label>
 			  	<div class="input-group" style="float:right; width: 100%;">
 			  		<span class="input-group-addon"><span id="calendarId" class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
-			  		<input class="form-control" type="text" id="utrEndTimeId" name="utrEndTime" placeholder="8" />
+			  		<input class="form-control" type="text" id="utrEndTimeId" name="utrEndTime" maxlength="8" size="8" placeholder="18:00:00" />
 			  	</div>
 		  	</div>
 	  	  </div>
@@ -108,11 +109,13 @@
 	    <#if plugins??>
 	    <#if plugins.timeRecordList?has_content>
 	    <#list plugins.timeRecordList as timeRecord>
-		    <ul class="table-ul bg-color ul-hover" onmouseover="overChangeColor(this);" onmouseout="outChangeColor(this);" onclick="selectTimeRecord(this, '${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}');">
+		    <ul class="table-ul bg-color ul-hover" onmouseover="overChangeColor(this);" onmouseout="outChangeColor(this);" onclick="selectTimeRecord(this, '${timeRecord.utrNo?if_exists}', '${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}');">
 			    <li class="time-li1">
 			    <#if timeRecord.utrKind == "0">
 			    		상근
-			    <#elseif timeRecord.utrKind == "3">
+			    <#elseif timeRecord.utrKind == "2">
+			    		휴일
+				<#elseif timeRecord.utrKind == "3">
 			    		외근
 			    <#elseif timeRecord.utrKind == "4">
 			    		출장
@@ -137,7 +140,7 @@
 			    </#if>
 			    </li>
 			    <li class="time-li2">${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}</li>
-		        <li class="time-li3">${timeRecord.utrStartTime?string('HH:mm:ss')?if_exists}</li>
+		        <li class="time-li3"><#if timeRecord.utrStartTime??>${timeRecord.utrStartTime?string('HH:mm:ss')?if_exists}</#if></li>
 		        <li class="time-li4"><#if timeRecord.utrEndTime??>${timeRecord.utrEndTime?string('HH:mm:ss')?if_exists}</#if></li>
 		        <li class="time-li5">${timeRecord.utrWorkHour?if_exists}</li>
 		        <li class="time-li6"><#if timeRecord.utrComment?has_content>*</#if></li>
@@ -177,6 +180,6 @@
 </div>
 
 <#include "/apps/common/abilistsPluginsLoadJs.ftl"/>
-<#include "js/indexJs.ftl"/>
+<#include "/apps/timerecord/js/indexJs.ftl"/>
 
 </@layout.myLayout>

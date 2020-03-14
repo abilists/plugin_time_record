@@ -31,6 +31,8 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 
 	@Autowired
 	private SqlSession sAbilistsDao;
+	@Autowired
+	private SqlSession mAbilistsBatchDao;
 
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	private boolean udtTimeRecord(Map<String, Object> map) throws Exception {
@@ -91,13 +93,14 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", sltTimeRecordPara.getUserId());
-		
+
 		if(sltTimeRecordPara.getUtrWorkDay() == null) {
 			// For insert first
 			String strToday = DateUtility.formatDate(DateUtility.getNowTime(), "yyyy-MM-dd");
 			map.put("utrWorkDay", strToday);
 		} else {
 			map.put("utrWorkDay", sltTimeRecordPara.getUtrWorkDay());
+			map.put("utrNo", sltTimeRecordPara.getUtrNo());
 		}
 
 		try {
@@ -114,27 +117,28 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		return timeRecord;
 	}
 
-	@Transactional(rollbackFor = {IndexOutOfBoundsException.class, Exception.class}, propagation = Propagation.REQUIRES_NEW)
-	@Override
-	public boolean istStartTime(CommonPara commonPara) throws Exception {
-
-		int intResult = 0;
+	public TimeRecordModel sltTimeRecordTop(SltTimeRecordPara sltTimeRecordPara) throws Exception {
+		TimeRecordModel timeRecord = null;
 
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", sltTimeRecordPara.getUserId());
 
-		SltTimeRecordPara sltTimeRecordPara = new SltTimeRecordPara();
-		sltTimeRecordPara.setUserId(commonPara.getUserId());
+		try {
+			sqlSessionSlaveFactory.setDataSource(getDispersionDb());
+			timeRecord = sAbilistsDao.getMapper(STimeRecordDao.class).sltTimeRecordTop(map);
 
-		TimeRecordModel timeRecord = this.sltTimeRecord(sltTimeRecordPara);
-		if(timeRecord != null) {
-			logger.info("The start time is already recorded.");
-			return true;
+		} catch (Exception e) {
+			logger.error("sltOptions Exception error", e);
 		}
 
-		map.put("userId", commonPara.getUserId());
-		map.put("utrKind", "0");
-		String strToday = DateUtility.formatDate(DateUtility.getNowTime(), "yyyy-MM-dd");
-		map.put("utrWorkDay", strToday);
+		return timeRecord;
+	}
+
+	@Transactional(rollbackFor = {IndexOutOfBoundsException.class, Exception.class}, propagation = Propagation.REQUIRES_NEW)
+	@Override
+	public boolean istStartTimeRecored(Map<String, Object> map) throws Exception {
+
+		int intResult = 0;
 
 		try {
 			intResult = mAbilistsDao.getMapper(MTimeRecordDao.class).istTimeRecord(map);
@@ -147,10 +151,55 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		}
 		
 		if(intResult < 1) {
-			logger.error("istServey error, userId={}", commonPara.getUserId());
+			logger.error("istServey error, userId={}", map.get("userId"));
 			return false;
 		}
 	
+		return true;
+	}
+
+	@Transactional(rollbackFor = {IndexOutOfBoundsException.class, Exception.class}, propagation = Propagation.REQUIRES_NEW)
+	@Override
+	public boolean istStartTime(CommonPara commonPara) throws Exception {
+		// Check if there is the today data
+		SltTimeRecordPara sltTimeRecordPara = new SltTimeRecordPara();
+		sltTimeRecordPara.setUserId(commonPara.getUserId());
+		TimeRecordModel timeRecord = this.sltTimeRecordTop(sltTimeRecordPara);
+
+		// For the start time
+		Date nowTime = DateUtility.getNowTime();
+		// For the work day
+		String strToday = DateUtility.formatDate(nowTime, "yyyy-MM-dd");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", commonPara.getUserId());
+		if(timeRecord == null) {
+			// Use this first time after installed
+			map.put("utrKind", "0");
+			map.put("utrWorkDay", strToday);
+			map.put("utrStartTime", nowTime);
+			mAbilistsBatchDao.getMapper(MTimeRecordDao.class).istTimeRecord(map);
+		} else {
+			String strResultDay = DateUtility.formatDate(timeRecord.getUtrWorkDay(), "yyyy-MM-dd");
+			if(strToday.equals(strResultDay)) {
+				logger.info("The start time is already recorded.");
+				return true;
+			} else {
+				int diffDays = DateUtility.minusDateDays(nowTime, timeRecord.getUtrWorkDay());
+				for(int i = diffDays - 1; 0 < i; i--) {
+					String beforeDays = DateUtility.formatDate(DateUtility.getDayInMillisBefore(i), "yyyy-MM-dd");
+					map.put("utrWorkDay", beforeDays);
+					mAbilistsBatchDao.getMapper(MTimeRecordDao.class).istTimeRecord(map);
+					logger.info("3, no data day=" + beforeDays);
+				}
+				map.put("utrKind", "0");
+				// Can select it with [2020-03-12] so that [2020-03-12 00:00:00] is going to be saved into DB
+				map.put("utrWorkDay", strToday);
+				map.put("utrStartTime", nowTime);
+				mAbilistsBatchDao.getMapper(MTimeRecordDao.class).istTimeRecord(map);
+			}
+		}
+
 		return true;
 	}
 
@@ -197,6 +246,7 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		try {
+			map.put("utrNo", udtTimeRecordPara.getUtrNo());
 			map.put("userId", udtTimeRecordPara.getUserId());
 			map.put("utrKind", udtTimeRecordPara.getUtrKind());
 			map.put("utrWorkDay", udtTimeRecordPara.getUtrWorkDay());

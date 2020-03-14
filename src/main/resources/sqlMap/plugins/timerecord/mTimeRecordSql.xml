@@ -21,7 +21,7 @@
 		) VALUES (
 			#{utrKind},
 			#{utrWorkDay},
-			now(),
+			#{utrStartTime},
 			#{utrEndTime},
 			#{utrWorkHour},
 			#{utrComment},
@@ -64,6 +64,9 @@
 		</if>
 			update_time = now()
 		WHERE
+		<if test="utrNo != null and utrNo !=''">
+			utr_no = #{utrNo} AND
+		</if>
 			user_id = #{userId} AND
 			utr_work_day = #{utrWorkDay} AND
 			utr_delete = '0'
