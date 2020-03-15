@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.abilists.core.service.AbilistsAbstractService;
-import com.abilists.plugins.dao.MInitiativeDao;
 import com.abilists.plugins.service.PluginService;
 
 @Service
@@ -88,36 +87,6 @@ public class InitiativeServiceImpl extends AbilistsAbstractService implements Pl
 	    		conn.close();
 	    	}
 		}
-		return "true";
-	}
-
-	/**
-	 * org.apache.ibatis.binding.BindingException: Type interface com.abilists.plugins.dao.MInitiativeDao is not known to the MapperRegistry.
-	 * 
-	 * @param tableName
-	 * @return
-	 * @throws Exception
-	 */
-	public String createTables2(String tableName) throws Exception {
-
-		int intResult = 0;
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("tableName", tableName);
-
-		try {
-
-			MInitiativeDao mInitiativeDao = mAbilistsDao.getMapper(MInitiativeDao.class);
-			intResult = mInitiativeDao.initiativeTables(map);
-		} catch (Exception e) {
-			logger.error("Exception error", e);
-		}
-
-		if(intResult < 1) {
-			logger.error("createTables error, tableName={}", tableName);
-			return "false";
-		}
-
 		return "true";
 	}
 
