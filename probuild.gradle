@@ -109,7 +109,7 @@ jar {
 	exclude ("applicationContext.xml")
 	exclude ("logback.xml")
 	exclude ("**.properties")
-	exclude ("com/abilists/plugins/timerecord/interceptor*")
+	exclude ("com/abilists/plugins/interceptor*")
 }
 
 // $ gradle install

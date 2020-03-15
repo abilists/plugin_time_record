@@ -78,7 +78,7 @@ public class InitiativeServiceImpl extends AbilistsAbstractService implements Pl
 	    }
 	    catch (Exception e) {
 	      logger.error("Exception", e);
-	      logger.error("DB URL=" + mapHash.get(PluginService.DB_URL) + ", username=" + mapHash.get(PluginService.DB_USERNAME) + ", password=" + mapHash.get(PluginService.DB_PASSWORD));
+	      logger.error("DB URL=" + mapHash.get(PluginService.DB_URL) + ", username=" + mapHash.get(PluginService.DB_USERNAME));
 	      return "false";
 	    } finally {
 	    	if(preparedStmt != null) {
