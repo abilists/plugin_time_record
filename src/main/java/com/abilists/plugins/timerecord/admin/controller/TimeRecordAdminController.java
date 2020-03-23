@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.abilists.bean.AdminAbilistsModel;
 import com.abilists.core.controller.AbstractBaseController;
+import com.abilists.plugins.timerecord.admin.service.AdminTimeRecordService;
 import com.abilists.plugins.timerecord.bean.PluginsModel;
-import com.abilists.plugins.timerecord.service.TimeRecordService;
 
 import base.bean.para.CommonPara;
 
@@ -26,7 +26,7 @@ public class TimeRecordAdminController extends AbstractBaseController {
 	final Logger logger = LoggerFactory.getLogger(TimeRecordAdminController.class);
 
 	@Autowired
-	private TimeRecordService timeRecordService;
+	private AdminTimeRecordService adminTimeRecordService;
     @Autowired
     ServletContext servletContext;
 
@@ -45,11 +45,11 @@ public class TimeRecordAdminController extends AbstractBaseController {
 
 		// Set Paging list
 		commonPara.setUserId(null);
-		int intSum = timeRecordService.sltTimeRecordSum(commonPara);
-		adminAbilistsModel.setPaging(timeRecordService.makePaging(commonPara, intSum));
+		int intSum = adminTimeRecordService.sltTimeRecordSum(commonPara);
+		adminAbilistsModel.setPaging(adminTimeRecordService.makePaging(commonPara, intSum));
 
 		// Get time recorded list
-		pluginsModel.setTimeRecordList(timeRecordService.sltTimeRecordList(commonPara));
+		pluginsModel.setTimeRecordList(adminTimeRecordService.sltTimeRecordList(commonPara));
 
 		model.addAttribute("model", adminAbilistsModel);
 		model.addAttribute("plugins", pluginsModel);

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.configuration.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,8 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 	private SqlSession sAbilistsDao;
 	@Autowired
 	private SqlSession mAbilistsBatchDao;
+	@Autowired
+    private Configuration configuration;
 
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	private boolean udtTimeRecord(Map<String, Object> map) throws Exception {
@@ -73,8 +76,13 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 	public List<TimeRecordModel> sltTimeRecordList(CommonPara commonPara) throws Exception {
 		List<TimeRecordModel> timeRecordList = null;
 
+		// Get now page
+		int nowPage = commonPara.getNowPage();
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", commonPara.getUserId());
+		map.put("nowPage", (nowPage - 1) * configuration.getInt("paging.row.ten"));
+		map.put("row", configuration.getInt("paging.row.ten"));
 
 		try {
 			sqlSessionSlaveFactory.setDataSource(getDispersionDb());

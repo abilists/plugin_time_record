@@ -109,8 +109,8 @@ public class TimeRecordController extends CommonAbilistsController {
 		// Set user id
 		this.handleSessionInfo(request.getSession(), commonPara);
 
-		Map<String, String> mapErrorMessage = new HashMap<String, String>();
 		// Execute the transaction
+		Map<String, String> mapErrorMessage = new HashMap<String, String>();
 		if (!timeRecordService.istStartTime(commonPara)) {
 			logger.error("istTimeRecord - inserting is error. userId={}", commonPara.getUserId());
 			mapErrorMessage.put("errorMessage", message.getMessage("parameter.insert.error.message", null, locale));
@@ -189,7 +189,8 @@ public class TimeRecordController extends CommonAbilistsController {
 			BindingResult bindingResult, ModelMap model, HttpServletRequest request,
 			HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception {
 
-    	sltTimeRecordPara.setUserId("njoonk");
+		// Set user id
+		this.handleSessionInfo(request.getSession(), sltTimeRecordPara);
 
     	timeRecordService.sltTimeRecordList(sltTimeRecordPara);
 

@@ -111,39 +111,42 @@
 	    <#list plugins.timeRecordList as timeRecord>
 		    <ul class="table-ul bg-color ul-hover" onmouseover="overChangeColor(this);" onmouseout="outChangeColor(this);" onclick="selectTimeRecord(this, '${timeRecord.utrNo?if_exists}', '${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}');">
 			    <li class="time-li1">
-			    <#if timeRecord.utrKind == "0">
-			    		상근
-			    <#elseif timeRecord.utrKind == "2">
-			    		휴일
-				<#elseif timeRecord.utrKind == "3">
-			    		외근
-			    <#elseif timeRecord.utrKind == "4">
-			    		출장
-			    <#elseif timeRecord.utrKind == "5">
-			    		연수
-			    <#elseif timeRecord.utrKind == "6">
-			    		파견
-			    <#elseif timeRecord.utrKind == "7">
-			    		자택근무
-			    <#elseif timeRecord.utrKind == "8">
-			    		결근
-			    <#elseif timeRecord.utrKind == "9">
-			    		휴무
-			    <#elseif timeRecord.utrKind == "10">
-			    		휴가
-			    <#elseif timeRecord.utrKind == "11">
-			    		생리휴가
-			    <#elseif timeRecord.utrKind == "12">
-			    		대기
-			    <#else>
-			    		기타
+			    <#if timeRecord.utrKind??>
+				    <#if timeRecord.utrKind == "0">
+				    		상근
+				    <#elseif timeRecord.utrKind == "2">
+				    		휴일
+					<#elseif timeRecord.utrKind == "3">
+				    		외근
+				    <#elseif timeRecord.utrKind == "4">
+				    		출장
+				    <#elseif timeRecord.utrKind == "5">
+				    		연수
+				    <#elseif timeRecord.utrKind == "6">
+				    		파견
+				    <#elseif timeRecord.utrKind == "7">
+				    		자택근무
+				    <#elseif timeRecord.utrKind == "8">
+				    		결근
+				    <#elseif timeRecord.utrKind == "9">
+				    		휴무
+				    <#elseif timeRecord.utrKind == "10">
+				    		휴가
+				    <#elseif timeRecord.utrKind == "11">
+				    		생리휴가
+				    <#elseif timeRecord.utrKind == "12">
+				    		대기
+				    <#else>
+				    		기타
+				    </#if>
+				<#else>
 			    </#if>
 			    </li>
-			    <li class="time-li2">${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}</li>
+			    <li class="time-li2"><#if timeRecord.utrWorkDay??>${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}</#if></li>
 		        <li class="time-li3"><#if timeRecord.utrStartTime??>${timeRecord.utrStartTime?string('HH:mm:ss')?if_exists}</#if></li>
 		        <li class="time-li4"><#if timeRecord.utrEndTime??>${timeRecord.utrEndTime?string('HH:mm:ss')?if_exists}</#if></li>
-		        <li class="time-li5">${timeRecord.utrWorkHour?if_exists}</li>
-		        <li class="time-li6"><#if timeRecord.utrComment?has_content>*</#if></li>
+		        <li class="time-li5"><#if timeRecord.utrWorkHour??>${timeRecord.utrWorkHour?if_exists}</#if></li>
+		        <li class="time-li6" style="text-align: center;"><#if timeRecord.utrComment?has_content>*</#if></li>
 		    </ul>
 		</#list>
 		</#if>

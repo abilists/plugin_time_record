@@ -33,7 +33,7 @@ buildscript {
 	}
 }
 
-version = '0.1.0'
+version = ''
 
 repositories {
 	mavenLocal()
@@ -93,8 +93,8 @@ dependencies {
 jar {
     manifest {
         attributes (
-        	'Specification-Title': 'plugin_time_record-' + version + '.jar',
-        	'Specification-Version': version,
+        	'Specification-Title': 'plugin_time_record.jar',
+        	'Specification-Version': '0.1.0',
         	'Specification-Vendor': 'Softfran Tech, Inc.',
         	'Built-By': System.properties['user.name'],
         	'Build-Timestamp': new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date()),
@@ -133,7 +133,7 @@ configure(install.repositories.mavenInstaller) {
 // $ gradle buildJar
 task buildJar << {
 	copy {
-		from "build/libs/plugin_time_record-" + version + ".jar"
+		from "build/libs/plugin_time_record.jar"
 		into "${System.getProperty( 'user.dir' )}" + "/../abilists_plugins/plugins"
 //		rename { String fileName -> fileName.replace("plugin_survey-" + version + ".jar", "plugin_survey-" + version + ".sfn")}
 		include '**/*.jar'
