@@ -29,8 +29,7 @@ Plugin_time_record는 어빌리스츠에 설치해서 무료로 쓸 수 있는 �
 
 ## How to install
 
-
-### 어빌리스츠 설치하기
+### [어빌리스츠](http://www.abilists.com/home) 설치하기
 
 ** Docker와 함께 설치 **
 
@@ -47,37 +46,49 @@ $ docker container run -d -p 80:8080 -v ~/.abilists:/root/.abilists abilists/tom
 
 ** 근태관리 플러그인 설치 **
 
+1. 파트너 아이디 등록하기
+![markdown](https://github.com/abilists/plugin_time_record/blob/master/doc/img/admin02.png)
+
+2. 근태관리 플러그인이 표시
+![markdown](https://github.com/abilists/plugin_time_record/blob/master/doc/img/admin03.png)
+
+3. 인스톨 버튼 누름
 ![markdown](https://github.com/abilists/plugin_time_record/blob/master/doc/img/admin01.png)
 
-
-
+4. 톰캣을 재시작
+**Docker**로 설치했을 경우
 ```
-joonk@joonk-mint-linux /usr/local/tomcat $ ./bin/startup.sh 
-Using CATALINA_BASE:   /usr/local/tomcat
-Using CATALINA_HOME:   /usr/local/tomcat
-Using CATALINA_TMPDIR: /usr/local/tomcat/temp
-Using JRE_HOME:        /usr
-Using CLASSPATH:       /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar
-Tomcat started.
+$ docker ps -a
+$ docker stop <CONTAINER ID>
+$ docker start <CONTAINER ID>
 ```
-
+**ROOT.war**로 설치했을 경우
 ```
-joonk@joonk-mint-linux /usr/local/tomcat $ ./bin/shutdown.sh 
-Using CATALINA_BASE:   /usr/local/tomcat
-Using CATALINA_HOME:   /usr/local/tomcat
-Using CATALINA_TMPDIR: /usr/local/tomcat/temp
-Using JRE_HOME:        /usr
-Using CLASSPATH:       /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar
-OpenJDK 64-Bit Server VM warning: ignoring option PermSize=64m; support was removed in 8.0
-OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=256m; support was removed in 8.0
+$ /usr/local/tomcat/bin/shutdown.sh 
+$ /usr/local/tomcat/bin/startup.sh 
 ```
 
+** 근태관리 주요기능 **
+* **출근버튼** : 출근 시간을 기록합니다.
+* **퇴근버튼** : 퇴근 시간을 기록합니다.
+* **근무시간** : 근무시간을 표시합니다.
+* **코멘트** : 휴가 및 결근에 대한 이유를 언급합니다.
 
+## Contributing
+A Pull Request를 하기전에, 아래의 규칙을 따라주시기 바랍니다.
+아래의 유틸리티를 Clone을 해서 Local에 설치할 필요가 있습니다.
+```
+compile "io.utility:security:0.0.1"
+compile "io.utility:letter:0.0.4"
+compile "io.utility:api:0.0.4"
+```
+Local 시스템에서 실행하기
+```
+$ gradle jettyRun
+```
+Gradle과 함께 Jetty를 통해서 다음의 URL로 접속을 할 수 있습니다.
 
+* http://localhost:9005/plugins/timerecord/index
 
-
-
-* **Live Preview** : Edit Markdown while keeping an eye on the rendered HTML. Your edits will be applied immediately.
-* **Scroll Sync** : Synchronous scrolling between Markdown and Preview. You don't need to scroll through each one separately.
-* **Auto Indent** : The cursor will always be where you want it to be.
-* **Syntax Highlight** : You can check broken Markdown syntax immediately.
+## License
+This software is licensed under the MIT © Abilists.
