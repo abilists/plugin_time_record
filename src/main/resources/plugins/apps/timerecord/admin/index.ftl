@@ -12,7 +12,7 @@
 		<h3>
 			<ol class="breadcrumb-std">
 			  <li><a href="/admin/"><@spring.message "admin.menu.plugins"/></a></li>
-			  <li class="active">출퇴근 관리2.2</li>
+			  <li class="active">출퇴근 관리</li>
 			</ol>
 		</h3>
 	</div>
