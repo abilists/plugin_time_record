@@ -7,10 +7,19 @@ Plugin_time_record는 어빌리스츠에 설치해서 무료로 쓸 수 있는 �
 
 ---
 
-## New in 0.1.0
+## v0.1.0에 기능
 
 - 출근 카드
 - 퇴근 카드
 - 결근에 자동 채워지기
 - 자동 근무시간
 - 근무관련 코멘트 쓰기
+
+## See Also
+
+- **[Abilists](https://github.com/abilists/abilists_client)**
+- **[abilists_plugins](https://github.com/abilists/abilists_plugins)**
+- **[abilists_docker](https://github.com/abilists/abilists_docker)**
+- **[paging](https://github.com/abilists/paging)**
+
+---
