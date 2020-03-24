@@ -2,7 +2,8 @@
 
 ![markdown](https://github.com/abilists/plugin_time_record/blob/master/doc/img/record01.png)
 
-Plugin_time_record는 어빌리스츠에 설치해서 무료로 쓸 수 있는 플러그인 입니다. 심플하게 출근관 퇴근시간을 관리합니다. 어빌리스츠를 먼저 설치해 주시기 바랍니다.
+Plugin_time_record는 어빌리스츠에 설치해서 무료로 쓸 수 있는 플러그인 입니다. 
+ 심플하게 출근 퇴근시간을 관리합니다. 어빌리스츠를 먼저 설치해 주시기 바랍니다.
 
 ## 필요한 시스템 환경
 
@@ -10,7 +11,7 @@ Plugin_time_record는 어빌리스츠에 설치해서 무료로 쓸 수 있는 �
 
 ---
 
-## v0.1.0에 기능
+## New in v0.1.0
 
 - 출근 카드
 - 퇴근 카드
@@ -29,9 +30,9 @@ Plugin_time_record는 어빌리스츠에 설치해서 무료로 쓸 수 있는 �
 
 ## How to install
 
-### [어빌리스츠](http://www.abilists.com/home) 설치하기
+### 플랫폼 [어빌리스츠](http://www.abilists.com/home) 설치하기
 
-** Docker와 함께 설치 **
+**Docker와 함께 설치**
 
 [*Docker*](http://www.abilists.com/home/docker)로 설치를 하시면 쉽게 설치가 가능합니다.
 
@@ -44,7 +45,7 @@ $ docker pull abilists/tomcat8.5:0.7.7
 $ docker container run -d -p 80:8080 -v ~/.abilists:/root/.abilists abilists/tomcat8.5:0.7.7
 ```
 
-** 근태관리 플러그인 설치 **
+**근태관리 플러그인 설치**
 
 1. 파트너 아이디 등록하기
 <img src="https://github.com/abilists/plugin_time_record/blob/master/doc/img/admin02.png" width="100%" title="Registering a partner Id" alt="Register a partner Id" style="border: 1px solid #eeeeec;"></img>
