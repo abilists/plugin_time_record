@@ -75,6 +75,7 @@ $ /usr/local/tomcat/bin/startup.sh
 
 ## How to develop
 **어빌리스츠에 필요한 유틸리티 설치하기**
+
 아래의 유틸리티를 Clone을 해서 Local에 설치할 필요가 있습니다.
 ```
 compile "io.utility:security:0.0.1"
@@ -87,6 +88,7 @@ $ gradle install
 ```
 
 **Local시스템에서 실행하기**
+
 Gradle과 함께 Jetty를 통해서 다음의 URL로 접속을 할 수 있습니다.
 ```
 $ gradle jettyRun
@@ -96,7 +98,7 @@ Product용 Jar파일 생성하기
 $ gradle -b ./probuild.gradle buildJar
 ```
 **Local브라우저에서 확인하기**
-http://localhost:9005/plugins/timerecord/index
+* http://localhost:9005/plugins/timerecord/index
 
 ## License
 This software is licensed under the MIT © Abilists.
