@@ -32,9 +32,7 @@ Plugin_time_record는 어빌리스츠에 설치해서 무료로 쓸 수 있는 �
 
 ### 플랫폼 [어빌리스츠](http://www.abilists.com/home) 설치하기
 
-**Docker와 함께 설치**
-
-[*Docker*](http://www.abilists.com/home/docker)로 설치를 하시면 쉽게 설치가 가능합니다.
+**[*Docker*](http://www.abilists.com/home/docker)와 함께 설치**
 
 1, Download the image of Docker for Abilists
 ```
@@ -45,7 +43,7 @@ $ docker pull abilists/tomcat8.5:0.7.7
 $ docker container run -d -p 80:8080 -v ~/.abilists:/root/.abilists abilists/tomcat8.5:0.7.7
 ```
 
-**근태관리 플러그인 설치**
+### 근태관리 플러그인 설치
 
 1. 파트너 아이디 등록하기
 <img src="https://github.com/abilists/plugin_time_record/blob/master/doc/img/admin02.png" width="100%" title="Registering a partner Id" alt="Register a partner Id" style="border: 1px solid #eeeeec;"></img>
@@ -75,21 +73,30 @@ $ /usr/local/tomcat/bin/startup.sh
 * **근무시간** : 근무시간을 표시합니다.
 * **코멘트** : 휴가 및 결근에 대한 이유를 언급합니다.
 
-## Contributing
-A Pull Request를 하기전에, 아래의 규칙을 따라주시기 바랍니다.
+## How to develop
+**어빌리스츠에 필요한 유틸리티 설치하기**
 아래의 유틸리티를 Clone을 해서 Local에 설치할 필요가 있습니다.
 ```
 compile "io.utility:security:0.0.1"
 compile "io.utility:letter:0.0.4"
 compile "io.utility:api:0.0.4"
 ```
-Local 시스템에서 실행하기
+Local 시스템에서 설치합니다.
+```
+$ gradle install
+```
+
+**Local시스템에서 실행하기**
+Gradle과 함께 Jetty를 통해서 다음의 URL로 접속을 할 수 있습니다.
 ```
 $ gradle jettyRun
 ```
-Gradle과 함께 Jetty를 통해서 다음의 URL로 접속을 할 수 있습니다.
-
-* http://localhost:9005/plugins/timerecord/index
+Product용 Jar파일 생성하기
+```
+$ gradle -b ./probuild.gradle buildJar
+```
+**Local브라우저에서 확인하기**
+http://localhost:9005/plugins/timerecord/index
 
 ## License
 This software is licensed under the MIT © Abilists.
