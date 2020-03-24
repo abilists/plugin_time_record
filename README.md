@@ -47,7 +47,7 @@ $ docker container run -d -p 80:8080 -v ~/.abilists:/root/.abilists abilists/tom
 ** 근태관리 플러그인 설치 **
 
 1. 파트너 아이디 등록하기
-![markdown](https://github.com/abilists/plugin_time_record/blob/master/doc/img/admin02.png)
+<img src="https://github.com/abilists/plugin_time_record/blob/master/doc/img/admin02.png" width="100%" title="Registering a partner Id" alt="Register a partner Id" style="border: 1px solid #eeeeec;"></img>
 
 2. 근태관리 플러그인이 표시
 ![markdown](https://github.com/abilists/plugin_time_record/blob/master/doc/img/admin03.png)
