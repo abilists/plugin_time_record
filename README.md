@@ -62,6 +62,18 @@ $ docker ps -a
 $ docker stop <CONTAINER ID>
 $ docker start <CONTAINER ID>
 ```
+
+아래는 예를 들은 경우 입니다.(@에러가 났을 때에는 한번더 재시작 해주시기 바랍니다.)
+```
+$ docker ps -a
+CONTAINER ID        IMAGE                      COMMAND             CREATED             STATUS              PORTS                  NAMES
+1f297cc69e9a        abilists/tomcat8.5:0.7.7   "catalina.sh run"   7 minutes ago       Up 7 minutes        0.0.0.0:80->8080/tcp   nice_goldberg
+$ docker stop 1f297cc69e9a
+1f297cc69e9a
+$ docker start 1f297cc69e9a
+1f297cc69e9a
+```
+
 **ROOT.war**로 설치했을 경우, `톰캣 재시작`
 ```
 $ /usr/local/tomcat/bin/shutdown.sh 
