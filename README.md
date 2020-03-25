@@ -1,6 +1,5 @@
 # plugin_time_record <a href="http://www.abilists.com" ><img src="https://github.com/minziappa/abilists_client/blob/master/src/main/webapp/static/apps/img/abilists/logo01.png" height="22" alt="Abilists"></a>
 
-[![Build Status](https://travis-ci.org/abilists/plugin_time_record.svg?branch=master)](https://travis-ci.org/abilists/plugin_time_record)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/abilists/plugin_time_record)
 
 ![markdown](https://github.com/abilists/plugin_time_record/blob/master/doc/img/record01.png)
