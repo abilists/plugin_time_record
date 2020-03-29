@@ -73,8 +73,6 @@ public class TimeRecordController extends CommonAbilistsController {
 		commonBean.addTokenExpireMap(key, token);
 		abilistsModel.setToken(token);
 
-		logger.info("userId ===> " + sltTimeRecordPara.getUserId());
-		
 		model.addAttribute("model", abilistsModel);
 		model.addAttribute("plugins", pluginsModel);
 
@@ -121,7 +119,7 @@ public class TimeRecordController extends CommonAbilistsController {
 		// Validate token
 		String key = this.makeKey(commonPara.getUserId(), AbstractBaseController.PREFIX_IST_KEY);
 		if (!commonPara.getToken().equals(commonBean.getTokenExpireMap(key))) {
-			logger.error("udtTimeRecord - token is wrong. parameter token=" + commonPara.getToken() + ", server token=" + commonBean.getTokenExpireMap(key));
+			logger.error("startTime - token is wrong. parameter token=" + commonPara.getToken() + ", server token=" + commonBean.getTokenExpireMap(key));
 			mapErrorMessage.put("errorMessage", message.getMessage("parameter.error.token.message", null, locale));
 			model.addAttribute("errorMessage", mapErrorMessage);
 			return "apps/errors/parameterErrors";
@@ -129,7 +127,7 @@ public class TimeRecordController extends CommonAbilistsController {
 
 		// Execute the transaction
 		if (!timeRecordService.istStartTime(commonPara)) {
-			logger.error("istTimeRecord - inserting is error. userId={}", commonPara.getUserId());
+			logger.error("istStartTime - inserting is error. userId={}", commonPara.getUserId());
 			mapErrorMessage.put("errorMessage", message.getMessage("parameter.insert.error.message", null, locale));
 			model.addAttribute("mapErrorMessage", mapErrorMessage);
 			return "apps/errors/systemErrors";

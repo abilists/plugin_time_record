@@ -132,9 +132,6 @@ function selectTimeRecord(x, utrNo, utrWorkDay) {
             complete: function(xhr, textStatus) {
             	console.log("complete");
             	formSlideDown();
-
-            	x.style.backgroundColor = "#9999CC";
-            	x.style.color= "#fff";
             },
             error: function(xhr, status) {
             	console.log("error >> " + xhr.responseText);
