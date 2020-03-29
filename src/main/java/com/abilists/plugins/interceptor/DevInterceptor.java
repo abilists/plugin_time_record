@@ -18,6 +18,8 @@ public class DevInterceptor implements PluginsInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
+		logger.info("Requested URL = " + request.getPathInfo());
+
 		UsersModel user = new UsersModel();
 		user.setUserId("admin");
 		user.setUserNo(1);

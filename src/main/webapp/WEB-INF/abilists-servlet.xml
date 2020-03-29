@@ -55,7 +55,7 @@
 
 	<!-- Set the Interceptor - spring 3.0  -->
 	<mvc:interceptors>
-		<bean id="devInterceptor" class="com.abilists.plugins.timerecord.interceptor.DevInterceptor" />
+		<bean id="devInterceptor" class="com.abilists.plugins.interceptor.DevInterceptor" />
 		<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<property name="paramName" value="lang" />
 		</bean>

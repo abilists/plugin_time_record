@@ -29,6 +29,7 @@ function isImageFile(file) {
         return /\.(jpg|jpeg|png|gif)$/.test(file);
     }
 }
+
 /**
  * How to use 
  * onkeypress="return isNumber(event)"
@@ -36,8 +37,21 @@ function isImageFile(file) {
  * @param {*} evt 
  */
 function isNumber(evt) {
-    var charCode = (evt.which) ? evt.which : event.keyCode
+    var charCode = (evt.which) ? evt.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    	return false;
+    }
+    return true;
+}
+/**
+ * How to use 
+ * onkeypress="return isAlphabets(event)"
+ * 
+ * @param {*} evt 
+ */
+function isAlphabets(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if (charCode < 97 || charCode > 122) {
     	return false;
     }
     return true;
