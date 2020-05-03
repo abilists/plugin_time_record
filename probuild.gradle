@@ -57,7 +57,7 @@ dependencies {
 	compile 'ch.qos.logback:logback-core:' + logbackVersion
 	compile 'ch.qos.logback:logback-classic:' + logbackVersion
 
-	compile files('libs/abilists_bean-0.7.7.jar', 'libs/abilists_core-0.7.7.jar', 'libs/abilists_plugins-0.1.0.jar', 'libs/base_bean-0.2.2.jar', 'libs/base_core-0.2.2.jar')
+	compile files('libs/abilists_bean-0.8.9.jar', 'libs/abilists_core-0.8.9.jar', 'libs/abilists_plugins-0.1.0.jar', 'libs/base_bean-0.2.2.jar', 'libs/base_core-0.2.2.jar')
 	compile "org.freemarker:freemarker:2.3.23"
 	compile "io.paging:paging:" + pagingVersion
 	compile "org.apache.commons:commons-pool2:2.5.0"
