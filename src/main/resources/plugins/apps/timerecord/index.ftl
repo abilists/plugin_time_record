@@ -39,7 +39,7 @@
 		</div>
 
 		<div id="udtMdataFormId" class="item-box" style="background-color: #efebe7;margin: 10px; display: none;">
-			<form id="updateFormId" name="updateForm" class="form-horizontal" action="${configBean.contextPath?if_exists}/plugins/timerecord/udtTimeRecord" method="post" onkeypress="return captureReturnKey(event);">
+			<form id="updateFormId" name="updateForm" class="form-horizontal" action="${configBean.contextPath?if_exists}/plugins/timerecord/udtTimeRecord?nowPage=<#if model.paging.nowPage?exists>${model.paging.nowPage}</#if>&allCount=${model.paging.allCount?c}" method="post" onkeypress="return captureReturnKey(event);">
 		  	  <div class="row">
 		  	  	<div class="col-sm-3 col-md-3">
 		  	  		<label class="control-label">근무 종류</label>
@@ -101,18 +101,18 @@
 			<div id="timeTableId" style="border: 1px solid #CDCDCD;">
 				<div>
 			    <ul class="table-ul table-ul-header ul-table ul-thead">
-			    	<li class="time-li1">근무 종류</li>
-			        <li class="time-li2">출근 날</li>
-			        <li class="time-li3">출근 시간</li>
-			        <li class="time-li4">퇴근 시간</li>
-			        <li class="time-li5">근무한 시간</li>
-			        <li>코멘트(*)</li>
+			    	<li style="width: 70px;">근무 종류</li>
+			        <li style="width: 70px;">출근 날</li>
+			        <li style="width: 15%;">출근 시간</li>
+			        <li style="width: 15%;">퇴근 시간</li>
+			        <li style="width: 15%;">근무한 시간</li>
+			        <li style="width: 60px;">코멘트(*)</li>
 			    </ul>
 			    <#if plugins??>
 			    <#if plugins.timeRecordList?has_content>
 			    <#list plugins.timeRecordList as timeRecord>
 				    <ul class="table-ul bg-color ul-hover ul-table" onmouseover="overChangeColor(this);" onmouseout="outChangeColor(this);" onclick="selectTimeRecord(this, '${timeRecord.utrNo?if_exists}', '${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}');">
-				       <li class="time-li1">
+				       <li style="width: 70px;">
 					    <#if timeRecord.utrKind??>
 						    <#if timeRecord.utrKind == "0">
 						    		상근
@@ -144,11 +144,11 @@
 						<#else>
 					    </#if>
 					    </li>
-					    <li class="time-li2"><#if timeRecord.utrWorkDay??>${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}</#if></li>
-				        <li class="time-li3"><#if timeRecord.utrStartTime??>${timeRecord.utrStartTime?string('HH:mm:ss')?if_exists}</#if></li>
-				        <li class="time-li4"><#if timeRecord.utrEndTime??>${timeRecord.utrEndTime?string('HH:mm:ss')?if_exists}</#if></li>
-				        <li class="time-li5"><#if timeRecord.utrWorkHour??>${timeRecord.utrWorkHour?if_exists}</#if></li>
-				        <li style="text-align: center;"><#if timeRecord.utrComment?has_content>*</#if></li>
+					    <li style="width: 70px;"><#if timeRecord.utrWorkDay??>${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}</#if></li>
+				        <li style="width: 15%;"><#if timeRecord.utrStartTime??>${timeRecord.utrStartTime?string('HH:mm:ss')?if_exists}</#if></li>
+				        <li style="width: 15%;"><#if timeRecord.utrEndTime??>${timeRecord.utrEndTime?string('HH:mm:ss')?if_exists}</#if></li>
+				        <li style="width: 15%;"><#if timeRecord.utrWorkHour??>${timeRecord.utrWorkHour?if_exists}</#if></li>
+				        <li style="width: 60px;"><#if timeRecord.utrComment?has_content>*</#if></li>
 				    </ul>
 				</#list>
 				</#if>

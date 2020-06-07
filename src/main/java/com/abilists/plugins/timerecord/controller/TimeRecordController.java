@@ -214,7 +214,7 @@ public class TimeRecordController extends CommonAbilistsController {
 			return "apps/errors/systemErrors";
 		}
 
-		return "redirect:/plugins/timerecord";
+		return "redirect:/plugins/timerecord?nowPage=" + udtTimeRecordPara.getNowPage() + "&allCount=" + udtTimeRecordPara.getAllCount();
 	}
 
     @RequestMapping(value = {"sltTimeRecordList"}, method=RequestMethod.GET)

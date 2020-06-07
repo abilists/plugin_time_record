@@ -88,6 +88,8 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 			sqlSessionSlaveFactory.setDataSource(getDispersionDb());
 			timeRecordList = sAbilistsDao.getMapper(STimeRecordDao.class).sltTimeRecordList(map);
 
+			
+			
 		} catch (Exception e) {
 			logger.error("sltOptions Exception error", e);
 		}
