@@ -17,6 +17,7 @@ public class TimeRecordModel extends BasicModel implements Serializable {
 	private String utrWorkHour;
 	private String utrComment;
 	private String utrPermit;
+	private String utrWeekday;
 	private String utrStatus;
 	private String userId;
 	private Date insertTime;
@@ -69,6 +70,12 @@ public class TimeRecordModel extends BasicModel implements Serializable {
 	}
 	public void setUtrPermit(String utrPermit) {
 		this.utrPermit = utrPermit;
+	}
+	public String getUtrWeekday() {
+		return utrWeekday;
+	}
+	public void setUtrWeekday(String utrWeekday) {
+		this.utrWeekday = utrWeekday;
 	}
 	public String getUtrStatus() {
 		return utrStatus;

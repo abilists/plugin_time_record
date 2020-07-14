@@ -13,6 +13,7 @@
 		  	utr_work_hour,
 		  	utr_comment,
 		  	utr_permit,
+		  	utr_weekday,
 		  	utr_status,
 		  	utr_delete,
 		  	user_id,
@@ -26,6 +27,7 @@
 			#{utrWorkHour},
 			#{utrComment},
 			'0',
+			#{utrWeekday},
 			'0',
 			'0',
 			#{userId},
@@ -58,6 +60,9 @@
 		</if>
 		<if test="utrPermit != null and utrPermit !=''">
 			utr_permit = #{utrPermit},
+		</if>
+		<if test="utrWeekday != null and utrWeekday !=''">
+			utr_weekday = #{utrWeekday},
 		</if>
 		<if test="utrStatus != null and utrStatus !=''">
 			utr_status = #{utrStatus},

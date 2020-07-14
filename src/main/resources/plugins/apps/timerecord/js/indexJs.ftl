@@ -151,7 +151,6 @@ function formSlideDown() {
 
 function updateFormCancel() {
 	$("#udtMdataFormId").slideUp("slow");
-	clearBackGroundColorUl("timeTableId");
 }
 
 function submitNewFormUserReports() {

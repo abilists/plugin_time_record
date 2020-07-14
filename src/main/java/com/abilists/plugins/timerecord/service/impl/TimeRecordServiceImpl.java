@@ -1,5 +1,7 @@
 package com.abilists.plugins.timerecord.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -88,8 +90,16 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 			sqlSessionSlaveFactory.setDataSource(getDispersionDb());
 			timeRecordList = sAbilistsDao.getMapper(STimeRecordDao.class).sltTimeRecordList(map);
 
-			
-			
+			for(TimeRecordModel timeRecord : timeRecordList) {
+				if(timeRecord.getUtrWeekday() == null || timeRecord.getUtrWeekday().isEmpty()) {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					String utrWorkday = sdf.format(timeRecord.getUtrWorkDay());
+					String[] workDayList = utrWorkday.split("-");
+					Calendar clr = DateUtility.getCalendarToday(Integer.parseInt(workDayList[0]), Integer.parseInt(workDayList[1]), Integer.parseInt(workDayList[2]), 0);
+					timeRecord.setUtrWeekday(String.valueOf(clr.get(Calendar.DAY_OF_WEEK)));
+				}
+			}
+
 		} catch (Exception e) {
 			logger.error("sltOptions Exception error", e);
 		}
@@ -177,7 +187,11 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		TimeRecordModel timeRecord = this.sltTimeRecordTop(sltTimeRecordPara);
 
 		// For the start time
-		Date nowTime = DateUtility.getNowTime();
+		// Date nowTime = DateUtility.getNowTime();
+
+		Calendar clr = DateUtility.getNowCalendar();
+		Date nowTime = DateUtility.getNowTime(clr);
+
 		// For the work day
 		String strToday = DateUtility.formatDate(nowTime, "yyyy-MM-dd");
 
@@ -209,6 +223,7 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 				mAbilistsBatchDao.getMapper(MTimeRecordDao.class).istTimeRecord(map);
 			}
 		}
+		map.put("utrWeekday", clr.get(Calendar.DAY_OF_WEEK));
 
 		return true;
 	}
@@ -279,6 +294,8 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 			map.put("utrWorkHour", diffTime);
 			map.put("utrComment", udtTimeRecordPara.getUtrComment());
 			map.put("utrStatus", "1");
+			// map.put("utrWeekday", clr.get(Calendar.DAY_OF_WEEK));
+
 		} catch (Exception e) {
 			logger.error("udtTimeRecord, Exception error", e);
 			return false;

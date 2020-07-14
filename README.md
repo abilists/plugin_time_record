@@ -94,7 +94,7 @@ $ /usr/local/tomcat/bin/startup.sh
 아래의 유틸리티를 Clone을 해서 Local에 설치할 필요가 있습니다.
 
 * [io.utility:security:0.0.1](https://github.com/abilists/security_utility)
-* [io.utility:letter:0.0.4](https://github.com/abilists/letter_utility)
+* [io.utility:letter:0.0.7](https://github.com/abilists/letter_utility)
 * [io.utility:api:0.0.4](https://github.com/abilists/api_utility)
 
 Local 시스템에서 설치합니다.

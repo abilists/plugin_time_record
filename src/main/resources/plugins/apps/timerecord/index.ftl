@@ -102,6 +102,7 @@
 				<div>
 			    <ul class="table-ul table-ul-header ul-table ul-thead">
 			    	<li style="width: 70px;">근무 종류</li>
+			    	<li style="width: 50px;">요일</li>
 			        <li style="width: 70px;">출근 날</li>
 			        <li style="width: 15%;">출근 시간</li>
 			        <li style="width: 15%;">퇴근 시간</li>
@@ -111,7 +112,10 @@
 			    <#if plugins??>
 			    <#if plugins.timeRecordList?has_content>
 			    <#list plugins.timeRecordList as timeRecord>
-				    <ul class="table-ul bg-color ul-hover ul-table" onmouseover="overChangeColor(this);" onmouseout="outChangeColor(this);" onclick="selectTimeRecord(this, '${timeRecord.utrNo?if_exists}', '${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}');">
+				    <ul class="table-ul bg-color ul-hover ul-table" 
+					    <#if timeRecord.utrWeekday??><#if timeRecord.utrWeekday == "1">style="background-color: #ffe5e5;"<#elseif timeRecord.utrWeekday == "7">style="background-color: #e5e5ff;"<#else></#if></#if>
+				    	onmouseover="overChangeColor(this);" onmouseout="outChangeColor(this);" 
+				    		onclick="selectTimeRecord(this, '${timeRecord.utrNo?if_exists}', '${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}');">
 				       <li style="width: 70px;">
 					    <#if timeRecord.utrKind??>
 						    <#if timeRecord.utrKind == "0">
@@ -140,6 +144,28 @@
 						    		대기
 						    <#else>
 						    		기타
+						    </#if>
+						<#else>
+					    </#if>
+					    </li>
+					    <li style="width: 50px;">
+					    <#if timeRecord.utrWeekday??>
+						    <#if timeRecord.utrWeekday == "2">
+						    		월
+						    <#elseif timeRecord.utrWeekday == "3">
+						    		화
+							<#elseif timeRecord.utrWeekday == "4">
+						    		수
+						    <#elseif timeRecord.utrWeekday == "5">
+						    		목
+						    <#elseif timeRecord.utrWeekday == "6">
+						    		금
+						    <#elseif timeRecord.utrWeekday == "7">
+						    		토
+							<#elseif timeRecord.utrWeekday == "1">
+						    		일
+						    <#else>
+						    		평일
 						    </#if>
 						<#else>
 					    </#if>
