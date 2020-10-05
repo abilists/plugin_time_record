@@ -41,7 +41,7 @@ public class TimeRecordAdminController extends AbstractBaseController {
 		PluginsModel pluginsModel = new PluginsModel();
 
 		// Set user id
-		this.handleSessionInfo(request.getSession(), commonPara);
+		this.handleSessionInfo(request.getSession(), commonPara, false);
 
 		// Set Paging list
 		commonPara.setUserId(null);

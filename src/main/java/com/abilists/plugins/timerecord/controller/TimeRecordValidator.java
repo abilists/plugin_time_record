@@ -19,12 +19,9 @@ import com.abilists.core.controller.BaseValidator;
 public class TimeRecordValidator implements BaseValidator {
 
 	final Logger logger = LoggerFactory.getLogger(TimeRecordValidator.class);
-	
-	private MessageSource message;
-
 
 	@Override
-	public <T> Map<String, String> validateBusiness(T para, Errors errors, Locale local) throws IOException {
+	public <T> Map<String, String> validateBusiness(T para, MessageSource message, Locale locale) throws IOException {
 		Map<String, String> mapErrorMessage = new HashMap<>();
 
 		StringBuffer sbStart = new StringBuffer();
@@ -36,7 +33,7 @@ public class TimeRecordValidator implements BaseValidator {
 				String startDate = sbStart.append(udtUserCareerPara.getUcStartYear()).append(udtUserCareerPara.getUcStartMonth()).toString(); 
 				String endDate = sbEnd.append(udtUserCareerPara.getUcEndYear()).append(udtUserCareerPara.getUcEndMonth()).toString();
 				if(Integer.parseInt(startDate) >=  Integer.parseInt(endDate)) {
-					mapErrorMessage.put("errorMessage", message.getMessage("parameter.error.message", null, local));
+					mapErrorMessage.put("errorMessage", message.getMessage("parameter.error.message", null, locale));
 					logger.warn("Invalidate your career date in udtUserCareer. startDate={}, endDate={}", startDate, endDate );
 				}
 			} else {
@@ -52,7 +49,7 @@ public class TimeRecordValidator implements BaseValidator {
 				String startDate = sbStart.append(istUserCareerPara.getUcStartYear()).append(istUserCareerPara.getUcStartMonth()).toString(); 
 				String endDate = sbEnd.append(istUserCareerPara.getUcEndYear()).append(istUserCareerPara.getUcEndMonth()).toString();
 				if(Integer.parseInt(startDate) >=  Integer.parseInt(endDate)) {
-					mapErrorMessage.put("errorMessage", message.getMessage("parameter.error.message", null, local));
+					mapErrorMessage.put("errorMessage", message.getMessage("parameter.error.message", null, locale));
 					logger.warn("Invalidate your career date in istUserCareer. startDate={}, endDate={}", startDate, endDate );
 				}
 			} else {
@@ -81,10 +78,6 @@ public class TimeRecordValidator implements BaseValidator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public void setMessage(MessageSource message) {
-		this.message = message;
 	}
 
 }

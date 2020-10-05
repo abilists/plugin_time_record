@@ -55,7 +55,7 @@ public class TimeRecordController extends CommonAbilistsController {
 		PluginsModel pluginsModel = new PluginsModel();
 
 		// Set user id
-		this.handleSessionInfo(request.getSession(), sltTimeRecordPara);
+		this.handleSessionInfo(request.getSession(), sltTimeRecordPara, false);
 
 		// Get today infomation
 		pluginsModel.setTimeRecord(timeRecordService.sltTimeRecord(sltTimeRecordPara));
@@ -84,7 +84,7 @@ public class TimeRecordController extends CommonAbilistsController {
 			HttpSession session) throws Exception {
 
 		// Set user id
-		this.handleSessionInfo(session, sltTimeRecordPara);
+		this.handleSessionInfo(session, sltTimeRecordPara, false);
 
 		// Get user Reports.
 		TimeRecordModel timeRecord = timeRecordService.sltTimeRecord(sltTimeRecordPara);
@@ -113,7 +113,7 @@ public class TimeRecordController extends CommonAbilistsController {
 		Locale locale = RequestContextUtils.getLocale(request);
 
 		// Set user id
-		this.handleSessionInfo(request.getSession(), commonPara);
+		this.handleSessionInfo(request.getSession(), commonPara, false);
 
 		Map<String, String> mapErrorMessage = new HashMap<String, String>();
 		// Validate token
@@ -149,7 +149,7 @@ public class TimeRecordController extends CommonAbilistsController {
 		Locale locale = RequestContextUtils.getLocale(request);
 
 		// Set user id
-		this.handleSessionInfo(request.getSession(), commonPara);
+		this.handleSessionInfo(request.getSession(), commonPara, false);
 
 		Map<String, String> mapErrorMessage = new HashMap<String, String>();
 		// Validate token
@@ -195,7 +195,7 @@ public class TimeRecordController extends CommonAbilistsController {
 		}
 
 		// Set user id
-		this.handleSessionInfo(request.getSession(), udtTimeRecordPara);
+		this.handleSessionInfo(request.getSession(), udtTimeRecordPara, false);
 
 		// Validate token
 		String key = this.makeKey(udtTimeRecordPara.getUserId(), AbstractBaseController.PREFIX_UDT_KEY);
@@ -223,7 +223,7 @@ public class TimeRecordController extends CommonAbilistsController {
 			HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception {
 
 		// Set user id
-		this.handleSessionInfo(request.getSession(), sltTimeRecordPara);
+		this.handleSessionInfo(request.getSession(), sltTimeRecordPara, false);
 
     	timeRecordService.sltTimeRecordList(sltTimeRecordPara);
 
