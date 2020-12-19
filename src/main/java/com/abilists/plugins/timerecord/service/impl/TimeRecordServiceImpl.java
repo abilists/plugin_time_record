@@ -111,12 +111,13 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 	public TimeRecordModel sltTimeRecord(SltTimeRecordPara sltTimeRecordPara) throws Exception {
 		TimeRecordModel timeRecord = null;
 
+		String strToday = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", sltTimeRecordPara.getUserId());
 
 		if(sltTimeRecordPara.getUtrWorkDay() == null) {
 			// For insert first
-			String strToday = DateUtility.formatDate(DateUtility.getNowTime(), "yyyy-MM-dd");
+			strToday = DateUtility.formatDate(DateUtility.getNowTime(), "yyyy-MM-dd");
 			map.put("utrWorkDay", strToday);
 		} else {
 			map.put("utrWorkDay", sltTimeRecordPara.getUtrWorkDay());
@@ -131,7 +132,7 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 			}
 
 		} catch (Exception e) {
-			logger.error("sltOptions Exception error", e);
+			logger.error("sltOptions Exception error. strToday=" + strToday + ", getUtrWorkDay=" + sltTimeRecordPara.getUtrWorkDay(), e);
 		}
 
 		return timeRecord;
