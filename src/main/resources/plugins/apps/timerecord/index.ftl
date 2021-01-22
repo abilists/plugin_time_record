@@ -115,7 +115,7 @@
 				    <ul class="table-ul bg-color ul-hover ul-table" 
 					    <#if timeRecord.utrWeekday??><#if timeRecord.utrWeekday == "1">style="background-color: #ffe5e5;"<#elseif timeRecord.utrWeekday == "7">style="background-color: #e5e5ff;"<#else></#if></#if>
 				    	onmouseover="overChangeColor(this);" onmouseout="outChangeColor(this);" 
-				    		onclick="selectTimeRecord(this, '${timeRecord.utrNo?if_exists}', '${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}');">
+				    		onclick="selectTimeRecord(this, '${timeRecord.utrNo?c?if_exists}', '${timeRecord.utrWorkDay?string('yyyy-MM-dd')?if_exists}');">
 				       <li style="width: 70px;">
 					    <#if timeRecord.utrKind??>
 						    <#if timeRecord.utrKind == "0">

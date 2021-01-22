@@ -13,7 +13,7 @@ Plugin_time_record는 어빌리스츠에 설치해서 무료로 쓸 수 있는 �
 
 ---
 
-## New in v0.1.3
+## New in v0.1.4
 
 - 출근 카드
 - 퇴근 카드
@@ -38,11 +38,11 @@ Plugin_time_record는 어빌리스츠에 설치해서 무료로 쓸 수 있는 �
 
 1, Download the image of Docker for Abilists
 ```
-$ docker pull abilists/tomcat8.5:1.0.0
+$ docker pull abilists/tomcat8.5:1.3.5
 ```
 2, Start the tomcat on Docker
 ```
-$ docker container run -d -p 80:8080 -v ~/.abilists:/root/.abilists abilists/tomcat8.5:1.0.0
+$ docker container run -d -p 80:8080 -v ~/.abilists:/root/.abilists abilists/tomcat8.5:1.3.5
 ```
 
 ### 근태관리 플러그인 설치
@@ -93,7 +93,7 @@ $ /usr/local/tomcat/bin/startup.sh
 
 아래의 유틸리티를 Clone을 해서 Local에 설치할 필요가 있습니다.
 
-* [io.utility:security:0.0.1](https://github.com/abilists/security_utility)
+* [io.utility:security:0.0.3](https://github.com/abilists/security_utility)
 * [io.utility:letter:0.0.7](https://github.com/abilists/letter_utility)
 * [io.utility:api:0.0.4](https://github.com/abilists/api_utility)
 

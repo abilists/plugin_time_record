@@ -68,7 +68,7 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		try {
 			sum = sAbilistsDao.getMapper(STimeRecordDao.class).sltTimeRecordSum(map);
 		} catch (Exception e) {
-			logger.error("Exception error", e);
+			logger.error("sltTimeRecordSum Exception error", e);
 		}
 
 		return sum;
@@ -101,7 +101,7 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 			}
 
 		} catch (Exception e) {
-			logger.error("sltOptions Exception error", e);
+			logger.error("sltTimeRecordList Exception error", e);
 		}
 
 		return timeRecordList;
@@ -132,7 +132,7 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 			}
 
 		} catch (Exception e) {
-			logger.error("sltOptions Exception error. strToday=" + strToday + ", getUtrWorkDay=" + sltTimeRecordPara.getUtrWorkDay(), e);
+			logger.error("sltTimeRecord Exception error. strToday=" + strToday + ", utrNo=" + sltTimeRecordPara.getUtrNo() +", getUtrWorkDay=" + sltTimeRecordPara.getUtrWorkDay(), e);
 		}
 
 		return timeRecord;
@@ -149,7 +149,7 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 			timeRecord = sAbilistsDao.getMapper(STimeRecordDao.class).sltTimeRecordTop(map);
 
 		} catch (Exception e) {
-			logger.error("sltOptions Exception error", e);
+			logger.error("sltTimeRecordTop Exception error", e);
 		}
 
 		return timeRecord;
@@ -172,7 +172,7 @@ public class TimeRecordServiceImpl extends AbilistsAbstractService implements Ti
 		}
 		
 		if(intResult < 1) {
-			logger.error("istServey error, userId={}", map.get("userId"));
+			logger.error("istStartTimeRecored error, userId={}", map.get("userId"));
 			return false;
 		}
 	

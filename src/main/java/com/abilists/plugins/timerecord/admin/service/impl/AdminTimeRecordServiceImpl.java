@@ -44,7 +44,7 @@ public class AdminTimeRecordServiceImpl extends AbilistsAbstractService implemen
 			timeRecordList = sAbilistsDao.getMapper(STimeRecordDao.class).sltTimeRecordList(map);
 
 		} catch (Exception e) {
-			logger.error("sltOptions Exception error", e);
+			logger.error("sltTimeRecordList Exception error", e);
 		}
 
 		return timeRecordList;
@@ -59,7 +59,7 @@ public class AdminTimeRecordServiceImpl extends AbilistsAbstractService implemen
 		try {
 			sum = sAbilistsDao.getMapper(STimeRecordDao.class).sltTimeRecordSum(map);
 		} catch (Exception e) {
-			logger.error("Exception error", e);
+			logger.error("sltTimeRecordSum Exception error", e);
 		}
 
 		return sum;
