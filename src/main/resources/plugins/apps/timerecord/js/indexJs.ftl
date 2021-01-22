@@ -59,7 +59,7 @@ function selectTimeRecord(x, utrNo, utrWorkDay) {
 
         $.ajax({
             type: 'POST',
-            url: '${configBean.contextPath?if_exists}/timerecord/sltTimeRecordAjax',
+            url: '${configBean.contextPath?if_exists}/plugins/timerecord/sltTimeRecordAjax',
             contentType: "application/json",
             dataType: "json",
             data: '{ "utrNo" : "' + utrNo + '", "utrWorkDay" : "' + utrWorkDay + '"}',

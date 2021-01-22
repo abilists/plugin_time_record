@@ -13,7 +13,7 @@ Plugin_time_record는 어빌리스츠에 설치해서 무료로 쓸 수 있는 �
 
 ---
 
-## New in v0.1.4
+## New in v0.1.5
 
 - 출근 카드
 - 퇴근 카드
