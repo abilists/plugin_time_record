@@ -15,9 +15,11 @@ public class TimeRecordModel extends BasicModel implements Serializable {
 	private Date utrStartTime;
 	private Date utrEndTime;
 	private String utrWorkHour;
+	private String utrBreakHour;
 	private String utrComment;
 	private String utrPermit;
 	private String utrWeekday;
+	private String utrLunchFlag;
 	private String utrStatus;
 	private String userId;
 	private Date insertTime;
@@ -59,6 +61,12 @@ public class TimeRecordModel extends BasicModel implements Serializable {
 	public void setUtrWorkHour(String utrWorkHour) {
 		this.utrWorkHour = utrWorkHour;
 	}
+	public String getUtrBreakHour() {
+		return utrBreakHour;
+	}
+	public void setUtrBreakHour(String utrBreakHour) {
+		this.utrBreakHour = utrBreakHour;
+	}
 	public String getUtrComment() {
 		return utrComment;
 	}
@@ -76,6 +84,12 @@ public class TimeRecordModel extends BasicModel implements Serializable {
 	}
 	public void setUtrWeekday(String utrWeekday) {
 		this.utrWeekday = utrWeekday;
+	}
+	public String getUtrLunchFlag() {
+		return utrLunchFlag;
+	}
+	public void setUtrLunchFlag(String utrLunchFlag) {
+		this.utrLunchFlag = utrLunchFlag;
 	}
 	public String getUtrStatus() {
 		return utrStatus;
